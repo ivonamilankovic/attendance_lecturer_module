@@ -1,13 +1,50 @@
+:root{
+  --light-blue :rgb(105, 173, 233);
+  --medium-blue :rgb(60, 146, 221);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.title{
+  text-align: center;
+  font-size: 42px;
+}
+.text{
+  font-size: 18px;
+}
+.login-form{
+  width: fit-content;
+  margin: 40px auto;
+  align-items: center;
+}
+.login-form input{
+  width: 280px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.login-form input:focus-visible{
+  border: none;
+  box-shadow: none;
+  border-bottom: 2px solid var(--medium-blue);
+}
+.login-btn{
+  display: block;
+  width: 100px;
+  margin: 20px auto;
+  padding: 8px 0;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--light-blue);
+}
+.login-btn:hover{
+  cursor: pointer;
+  background-color: var(--medium-blue);
 }
