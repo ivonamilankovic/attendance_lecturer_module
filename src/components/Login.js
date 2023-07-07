@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-function Login() {
+function Login({setToken}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
 
   async function login() {
     const formData = {
