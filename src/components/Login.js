@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BACKEND_URL } from "../constants";
 
-function Login({setToken}) {
+function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,9 +10,8 @@ function Login({setToken}) {
       email: email,
       password: password,
     };
-    console.log(formData);
     try {
-      await fetch("https://localhost:7206/api/Login", {
+      await fetch(BACKEND_URL + "Login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,9 +25,30 @@ function Login({setToken}) {
     }
   }
 
+  useEffect(() => {
+    if (email && !email.includes("@")) {
+      document.getElementById("email").classList.add("bad-input");
+      document.getElementById("email").classList.remove("good-input");
+      document.getElementById("login-btn").disabled = true;
+    } else if (email.includes("@")) {
+      document.getElementById("email").classList.remove("bad-input");
+      document.getElementById("email").classList.add("good-input");
+      document.getElementById("login-btn").disabled = false;
+    }
+    if (password.length > 0 && password.length < 6) {
+      document.getElementById("password").classList.add("bad-input");
+      document.getElementById("password").classList.remove("good-input");
+      document.getElementById("login-btn").disabled = true;
+    } else if (password.length >= 6) {
+      document.getElementById("password").classList.remove("bad-input");
+      document.getElementById("password").classList.add("good-input");
+      document.getElementById("login-btn").disabled = false;
+    }
+  }, [email, password]);
+
   return (
     <div>
-      <h1 className="title">Login</h1>
+      <h1 className="title">Log in</h1>
       <form method="post" className="login-form">
         <label htmlFor="email" className="text">
           Email:
@@ -53,7 +74,12 @@ function Login({setToken}) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </form>
-      <button type="submit" className="login-btn" onClick={() => login()}>
+      <button
+        id="login-btn"
+        type="submit"
+        className="btn"
+        onClick={() => login()}
+      >
         Submit
       </button>
     </div>

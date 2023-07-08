@@ -1,6 +1,11 @@
 :root{
-  --light-blue :rgb(105, 173, 233);
-  --medium-blue :rgb(60, 146, 221);
+  --green: rgb(80,162,167);
+  --dark-green: rgb(43, 115, 117);
+  --dark-blue: rgb(3, 26, 41);
+  --light-beige: rgb(252, 247, 245);
+  --gray: rgb(128,128,128);
+  --invalid: rgb(223, 6, 6);
+  --valid : rgb(7, 185, 7);
 }
 
 body {
@@ -8,43 +13,127 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--light-beige);
 }
 
 .title{
   text-align: center;
   font-size: 42px;
+  color: var(--dark-blue);
 }
 .text{
   font-size: 18px;
 }
-.login-form{
-  width: fit-content;
-  margin: 40px auto;
-  align-items: center;
+.btn{
+  display: block;
+  min-width: fit-content;
+  width: 100px;
+  margin: 20px auto;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--green);
+  transition: background-color 0.5s;
 }
-.login-form input{
+.btn:hover:enabled{
+  cursor: pointer;
+  color: var(--light-beige);
+  background-color: var(--dark-green);
+}
+input{
   width: 280px;
   margin-top: 8px;
   margin-bottom: 15px;
   padding: 8px;
   border: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--gray);
+  background-color: transparent;
 }
-.login-form input:focus-visible{
+.bad-input{
+  border-bottom: 1px solid var(--invalid) !important;
+}
+.good-input{
+  border-bottom: 1px solid var(--valid) !important;
+}
+input:focus-visible{
+  outline: none;
   border: none;
   box-shadow: none;
-  border-bottom: 2px solid var(--medium-blue);
+  border-bottom: 1px solid var(--dark-blue);
 }
-.login-btn{
-  display: block;
-  width: 100px;
-  margin: 20px auto;
-  padding: 8px 0;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--light-blue);
+/*header*/
+header{
+  overflow: hidden;
+  background-color:  var(--green);
+  padding: 10px 15px;
 }
-.login-btn:hover{
-  cursor: pointer;
-  background-color: var(--medium-blue);
+header a{
+  text-decoration: none;
+  color: var(--dark-blue);
+  padding: 0 8px;
+  letter-spacing: normal;
+  transition: letter-spacing 0.5s;
+}
+header a:hover{
+  letter-spacing: 2px;
+}
+.header-left{
+  float: left;
+  padding: 5px;
+}
+.header-right {
+  float: right;
+  padding: 5px;
+}
+.header-left, .header-right {
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+}
+.page-name{
+  padding-left: 5px;
+  padding-right: 15px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/*login*/
+.login-form{
+  width: fit-content;
+  margin: 40px auto;
+  align-items: center;
+}
+
+/*dashbord courses*/
+.course-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: fit-content;
+}
+.course-card{
+  margin: 20px;
+  padding: 10px;
+  width: 350px;
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+}
+.course-card .btn{
+  margin-bottom: 8px;
+}
+.course-body{
+  height: 75px;
+  padding: 5px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.course-body .text{
+  margin-bottom: 2px;
+}
+.course-title{
+  text-align: center;
+  margin: 8px;
 }

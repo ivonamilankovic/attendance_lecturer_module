@@ -1,0 +1,8 @@
+export const BACKEND_URL = "https://localhost:7206/api/";
+export const ROLES = {
+  ROLE_ADMIN: "Admin",
+  ROLE_PROFESSOR: "Professor",
+  ROLE_ASSISTANT: "Assistant",
+  ROLE_STUDENT: "Student",
+  ROLE_USER: "User",
+};
