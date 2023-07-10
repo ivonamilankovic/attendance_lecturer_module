@@ -1,30 +1,22 @@
 import { useState, useEffect } from "react";
-import { BACKEND_URL } from "../constants";
-import Dashboard from "./Dashboard";
-import Loading from "./Loading";
+import { KEY_USER_TOKEN } from "../constants";
+import { Navigate } from "react-router-dom";
+import Login from "./Login";
 
-function Home({ token }) {
-  const [user, setUser] = useState();
+function Home() {
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    try {
-      fetch(BACKEND_URL + "Login/Validate?token=" + token, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-        .then((res) => res.json())
-        .then((u) => setUser(u));
-    } catch (e) {
-      console.log(e);
+    if (localStorage.getItem(KEY_USER_TOKEN) !== "") {
+      setToken(localStorage.getItem(KEY_USER_TOKEN));
     }
-  }, [token]);
-  if (!user) {
-    return <Loading />;
+  }, []);
+
+  if (token) {
+    return <Navigate to="/dashboard" />;
   } else {
-    return <Dashboard user={user} token={token} />;
+    return <Login setToken={setToken} />;
   }
 }
+
 export default Home;

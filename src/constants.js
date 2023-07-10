@@ -6,3 +6,4 @@ export const ROLES = {
   ROLE_STUDENT: "Student",
   ROLE_USER: "User",
 };
+export const KEY_USER_TOKEN = "user_token";

@@ -1,11 +1,30 @@
-import { useState, useEffect } from "react";
-import { BACKEND_URL, ROLES } from "../constants";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { BACKEND_URL, KEY_USER_TOKEN, ROLES } from "../constants";
 import Loading from "./Loading";
+import Header from "./Header";
+import { useUser } from "../useUser";
 
-function Dashboard({ user, token }) {
+function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
-  useEffect(() => {
+  const token =
+    localStorage.getItem(KEY_USER_TOKEN) !== ""
+      ? localStorage.getItem(KEY_USER_TOKEN)
+      : null;
+  const { user, load } = useUser(token);
+
+  if (!user) {
+    return <Navigate to="/" />;
+  }
+
+  if (load) {
+    return <Loading />;
+  } else {
+    fetchCourses();
+  }
+
+  async function fetchCourses() {
     let urlParam = "";
     if (user.role.name === ROLES.ROLE_PROFESSOR) {
       urlParam = "professorId=" + user.id;
@@ -29,48 +48,51 @@ function Dashboard({ user, token }) {
     } catch (e) {
       console.log(e);
     }
-  }, [token, user]);
+  }
 
   if (loading) {
     return <Loading />;
   } else {
     return (
-      <div>
-        <h1 className="title">My courses</h1>
-        <div className="course-list">
-          {courses.map((course) => {
-            const {
-              id,
-              name,
-              professor,
-              assistant,
-              lecturesNumForProfessor,
-              lecturesNumForAssistent,
-              totalTakenLectures,
-            } = course;
-            return (
-              <div key={id} className="course-card">
-                <h3 className="course-title">{name}</h3>
-                <hr />
-                <div className="course-body">
-                  {assistant && (
+      <>
+        <Header />
+        <div>
+          <h1 className="title">My courses</h1>
+          <div className="course-list">
+            {courses.map((course) => {
+              const {
+                id,
+                name,
+                professor,
+                assistant,
+                lecturesNumForProfessor,
+                lecturesNumForAssistent,
+                totalTakenLectures,
+              } = course;
+              return (
+                <div key={id} className="course-card">
+                  <h3 className="course-title">{name}</h3>
+                  <hr />
+                  <div className="course-body">
+                    {assistant && (
+                      <p className="text">
+                        Assistant: {assistant.firstName} {assistant.lastName}
+                      </p>
+                    )}
                     <p className="text">
-                      Assistant: {assistant.firstName} {assistant.lastName}
+                      Lectures taken: {totalTakenLectures} /
+                      {lecturesNumForAssistent
+                        ? parseInt(lecturesNumForAssistent)
+                        : 0 + parseInt(lecturesNumForProfessor)}
                     </p>
-                  )}
-                  <p className="text">
-                    Lectures taken: {totalTakenLectures} /
-                    {lecturesNumForAssistent
-                      ? parseInt(lecturesNumForAssistent)
-                      : 0 + parseInt(lecturesNumForProfessor)}
-                  </p>
+                  </div>
+                  <button className="btn card-btn">See more...</button>
                 </div>
-                <button className="btn">See more...</button>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -1,31 +1,31 @@
-function Header({ loggedIn }) {
-    //TODO fix routes
+import { Link } from "react-router-dom";
+import { KEY_USER_TOKEN } from "../constants";
+
+function Header() {
+  const loggedIn = localStorage.getItem(KEY_USER_TOKEN) !== "" ? true : false;
+  //TODO fix routes
   return (
     <header>
       <div className="header-left">
         <span>
-          <img
-            src="./title-icon.png"
-            alt="icon"
-            width="25px"
-          />
+          <img src="./title-icon.png" alt="icon" width="25px" />
           <span className="page-name">Attendance Lecturer Module</span>
         </span>
         {loggedIn && (
           <>
-            <a href="#">Dashboard</a>
-            <a href="#">Statistics</a>
+            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/">Statistics</Link>
           </>
         )}
       </div>
       <div className="header-right">
         {loggedIn ? (
           <>
-            <a href="#">My profile</a>
-            <a href="#">Log out</a>
+            <Link to="/">My profile</Link>
+            <Link to="/logout">Log out</Link>
           </>
         ) : (
-          <a href="#">Log in</a>
+          <Link to="/">Log in</Link>
         )}
       </div>
     </header>

@@ -1,22 +1,18 @@
-import { useState } from "react";
-import Login from "./components/Login";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import Header from "./components/Header";
-//TODO router
+import Dashboard from "./components/Dashboard";
+import Logout from "./components/Logout";
+import NotFound from "./components/NotFound";
+
 function App() {
-  const [token, setToken] = useState("");
-  if (token) {
-    return (
-      <>
-        <Header loggedIn={true} />
-        <Home token={token} />
-      </>
-    );
-  }
   return (
     <>
-      <Header loggedIn={false} />
-      <Login setToken={setToken} />
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
