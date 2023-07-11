@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { BACKEND_URL, KEY_USER_TOKEN } from "../constants";
 import Header from "./Header";
+import Loading from "./Loading";
 
-function Login({ setToken }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState("");
 
   async function login() {
+    setLoading(true);
     const formData = {
       email: email,
       password: password,
@@ -20,8 +25,11 @@ function Login({ setToken }) {
     })
       .then((res) => res.json())
       .then((r) => {
-        setToken(r.Token);
-        localStorage.setItem(KEY_USER_TOKEN, r.Token);
+        if (r.Token) {
+          setToken(r.Token);
+          localStorage.setItem(KEY_USER_TOKEN, r.Token);
+        }
+        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
@@ -63,6 +71,12 @@ function Login({ setToken }) {
     }
   }, [email, password]);
 
+  if (loading) {
+    return <Loading />;
+  }
+  if (token || localStorage.getItem(KEY_USER_TOKEN)!=="") {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <>
       <Header />

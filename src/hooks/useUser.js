@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { BACKEND_URL } from "./constants";
+import { BACKEND_URL } from "../constants";
 
 export const useUser = (token) => {
-  const [user, setUser] = useState();
+  const [currentUser, setUser] = useState();
   const [load, setLoad] = useState(true);
+  const [success, setSuccess] = useState(false);
 
-  const getUser = useCallback( () => {
+  const getUser = useCallback(() => {
     fetch(BACKEND_URL + "Login/Validate?token=" + token, {
       method: "GET",
       headers: {
@@ -15,15 +16,18 @@ export const useUser = (token) => {
     })
       .then((res) => res.json())
       .then((u) => {
-        setUser(u);
-        setLoad(false);
+        if (u) {
+          setUser(u);
+          setLoad(false);
+          setSuccess(true);
+        }
       })
       .catch((e) => console.log(e));
-  },[token]);
+  }, [token]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
-  },[token, getUser]);
+  }, [token, getUser]);
 
-  return {user, load};
+  return { currentUser, load, success };
 };

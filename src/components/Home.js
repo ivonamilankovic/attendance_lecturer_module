@@ -1,21 +1,11 @@
-import { useState, useEffect } from "react";
-import { KEY_USER_TOKEN } from "../constants";
 import { Navigate } from "react-router-dom";
-import Login from "./Login";
+import { KEY_USER_TOKEN } from "../constants";
 
 function Home() {
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    if (localStorage.getItem(KEY_USER_TOKEN) !== "") {
-      setToken(localStorage.getItem(KEY_USER_TOKEN));
-    }
-  }, []);
-
-  if (token) {
+  if (localStorage.getItem(KEY_USER_TOKEN) !== "") {
     return <Navigate to="/dashboard" />;
   } else {
-    return <Login setToken={setToken} />;
+    return <Navigate to="/login" />;
   }
 }
 
