@@ -18,8 +18,8 @@ export const useApi = (method, apiSection, urlParam = "", body = {}) => {
         Authorization: "Bearer " + token,
       },
     };
-    if (method !== "GET") {
-      fetchParams[body] = body;
+    if (method === "POST" || method === "PUT") {
+      fetchParams.body = JSON.stringify(body);
     }
 
     fetch(BACKEND_URL + apiSection + urlParam, fetchParams)
@@ -28,7 +28,10 @@ export const useApi = (method, apiSection, urlParam = "", body = {}) => {
         setData(d);
         setLoad(false);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setLoad(false);
+      });
   }, [method, apiSection, urlParam, body]);
 
   useEffect(() => {

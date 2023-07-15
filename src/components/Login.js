@@ -74,7 +74,7 @@ function Login() {
   if (loading) {
     return <Loading />;
   }
-  if (token || localStorage.getItem(KEY_USER_TOKEN)!=="") {
+  if (token || localStorage.getItem(KEY_USER_TOKEN) !== "") {
     return <Navigate to="/dashboard" />;
   }
   return (
@@ -82,7 +82,7 @@ function Login() {
       <Header />
       <div>
         <h1 className="title">Log in</h1>
-        <form method="post" className="login-form">
+        <form method="post" className="form">
           <div id="error-msg" style={{ display: "none" }}></div>
           <label htmlFor="email" className="text">
             Email:

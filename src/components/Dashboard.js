@@ -10,27 +10,17 @@ function Dashboard() {
       ? localStorage.getItem(KEY_USER_TOKEN)
       : null;
   const { currentUser, load, success } = useUser(token);
-  let urlParam;
 
-  if (currentUser && success) {
-    urlParam = "?" + getParams();
-  }
-
-  function getParams() {
-    if (currentUser?.role.name === ROLES.ROLE_PROFESSOR) {
-      return "professorId=" + currentUser?.id;
-    } else if (currentUser?.role.name === ROLES.ROLE_ASSISTANT) {
-      return "assistantId=" + currentUser?.id;
-    }
-  }
-
-  if (load) {
-    return <Loading />;
+  if (success === false) {
+    return <Navigate to="/logout" />;
   }
   if (!token) {
     return <Navigate to="/logout" />;
   }
-  return <CoursesList urlParam={urlParam} />;
+  if (load) {
+    return <Loading />;
+  }
+  return <CoursesList currentUser={currentUser} />;
 }
 
 export default Dashboard;

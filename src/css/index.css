@@ -34,13 +34,38 @@ body {
   border-radius: 4px;
   background-color: var(--green);
   transition: background-color 0.3s;
+  transition: box-shadow 0.3s;
 }
 .btn:hover:enabled{
   cursor: pointer;
   color: var(--light-beige);
   background-color: var(--dark-green);
+  box-shadow: 2px 2px var(--gray);
 }
-input{
+.btn-link{
+  text-decoration: none;
+  color: var(--dark-blue);
+}
+.btn-link:hover{
+  color: var(--light-beige);
+}
+.btn-edit{
+  background-color: rgb(255, 174, 0);
+  width: 45px;
+}
+.btn-del{
+  background-color: rgb(201, 9, 9);
+  width: 45px;
+}
+.btn-edit:hover, .btn-del:hover{
+  background-color: transparent !important;
+}
+.form{
+  width: 300px;
+  margin: 40px auto;
+  align-items: center;
+}
+input, select, textarea{
   width: 280px;
   margin-top: 8px;
   margin-bottom: 15px;
@@ -49,13 +74,16 @@ input{
   border-bottom: 1px solid var(--gray);
   background-color: transparent;
 }
+textarea{
+  height: 80px;
+}
 .bad-input{
   border-bottom: 1px solid var(--invalid) !important;
 }
 .good-input{
   border-bottom: 1px solid var(--valid) !important;
 }
-input:focus-visible{
+input:focus-visible, select:focus-visible{
   outline: none;
   border: none;
   box-shadow: none;
@@ -96,20 +124,19 @@ header a:hover{
   font-size: 26px;
   font-weight: bold;
 }
-
-/*login*/
-.login-form{
-  width: 300px;
-  margin: 40px auto;
-  align-items: center;
+.no-data{
+  margin: 50px;
+  text-align: center;
+  color: var(--invalid);
 }
+/*login*/
 #error-msg{
   color: var(--invalid);
   font-size: 14px;
   margin-bottom: 15px;
 }
 
-/*dashbord courses*/
+/*courses*/
 .course-list{
   display: flex;
   flex-wrap: wrap;
@@ -150,4 +177,66 @@ header a:hover{
 .course-title{
   text-align: center;
   margin: 8px;
+}
+.logged-person{
+  margin: 8px 5px 0 0 ;
+  font-size: 16px;
+  text-align: right;
+}
+.filters{
+  display: flex;
+  justify-content: space-between;
+}
+.filters select{
+  margin-right: 15px;
+}
+.filters .btn{
+  display: inline-block;
+  margin: 10px;
+}
+.filters span{
+  margin-right: 10px;
+}
+
+/*lectures list*/
+.course-info p, .course-info h3{
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+.info{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px;
+}
+.info button{
+  height: fit-content;
+  align-self: center;
+  margin: 0;
+}
+/*table*/
+.lectures-list-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 95%;
+  margin: 25px auto;
+}
+.lectures-list-table td, .lectures-list-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.lectures-list-table tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+.lectures-list-table tr:hover {
+  background-color: #ddd;
+}
+.lectures-list-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--green);
+  color: white;
+}
+.options-btns{
+  display: flex;
 }

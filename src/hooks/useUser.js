@@ -4,7 +4,7 @@ import { BACKEND_URL } from "../constants";
 export const useUser = (token) => {
   const [currentUser, setUser] = useState();
   const [load, setLoad] = useState(true);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState();
 
   const getUser = useCallback(() => {
     fetch(BACKEND_URL + "Login/Validate?token=" + token, {
@@ -22,7 +22,10 @@ export const useUser = (token) => {
           setSuccess(true);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setSuccess(false);
+      });
   }, [token]);
 
   useEffect(() => {
@@ -31,3 +34,5 @@ export const useUser = (token) => {
 
   return { currentUser, load, success };
 };
+
+export default useUser;

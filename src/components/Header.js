@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
+import icon from "../images/title-icon.png";
 
 function Header() {
   const loggedIn = localStorage.getItem(KEY_USER_TOKEN) !== "" ? true : false;
@@ -8,7 +9,7 @@ function Header() {
     <header>
       <div className="header-left">
         <span>
-          <img src="./title-icon.png" alt="icon" width="25px" />
+          <img src={icon} alt="icon" width="25px" />
           <span className="page-name">Attendance Lecturer Module</span>
         </span>
         {loggedIn && (
