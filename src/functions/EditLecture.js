@@ -1,6 +1,6 @@
 import { Navigate, useParams, useLocation } from "react-router-dom";
 import useApi from "../hooks/useApi";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 
 function EditLecture() {
   const params = useParams();

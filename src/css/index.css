@@ -51,7 +51,11 @@ body {
 }
 .btn-edit{
   background-color: rgb(255, 174, 0);
-  width: 45px;
+  width: 45px; 
+  margin-right: 12px;
+}
+.btn-edit:first-of-type{
+  width: fit-content;
 }
 .btn-del{
   background-color: rgb(201, 9, 9);
@@ -170,9 +174,12 @@ header a:hover{
 }
 .card-btn{
   display: block;
-  width: inherit;
+  width: 350px;
   margin-bottom: 0;
   border-radius: 0 0 6px 6px;
+}
+.card-btn:hover{
+  box-shadow: none !important;
 }
 .course-title{
   text-align: center;
@@ -208,7 +215,7 @@ header a:hover{
   justify-content: space-between;
   margin: 0 25px;
 }
-.info button{
+.info a{
   height: fit-content;
   align-self: center;
   margin: 0;
@@ -239,4 +246,45 @@ header a:hover{
 }
 .options-btns{
   display: flex;
+  justify-content: space-evenly;
+}
+
+
+/*loader*/
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid var(--dark-green);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--dark-green) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

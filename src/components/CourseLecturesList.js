@@ -80,15 +80,15 @@ function CourseLecturesList() {
                 : 0 + parseInt(course.lecturesNumForProfessor)}
             </p>
           </div>
-          <button className="btn">
-            <Link
-              className="btn-link"
-              state={action}
-              to={"/course/" + params.id + "/lecture/0/form"}
-            >
-              Add new lecture
-            </Link>
-          </button>
+
+          <Link
+            className="btn-link"
+            state={action}
+            to={"/course/" + params.id + "/lecture/0/form"}
+          >
+            {" "}
+            <button className="btn">Add new lecture</button>
+          </Link>
         </div>
         {lectures.length > 0 ? (
           <>
@@ -112,8 +112,7 @@ function CourseLecturesList() {
                   const d = new Date(date);
                   i++;
                   return (
-                    <>
-                      <tr>
+                      <tr key={id}>
                         <td>{i}</td>
                         <td>{name}</td>
                         <td>
@@ -137,53 +136,49 @@ function CourseLecturesList() {
                           </button>
                         </td>
                         <td className="options-btns">
-                          <button className="btn btn-edit">
-                            <Link
-                              className="btn-link"
-                              to={
-                                "/course/" +
-                                params.id +
-                                "/lecture/" +
-                                id +
-                                "/new_qr"
-                              }
-                            >
-                              <img src={refresh} alt="regenerate" width={18} /> {"  "}
-                              <img src={qr} alt="qr" width={18}/>
-                            </Link>
-                          </button>
-                          <button className="btn btn-edit">
-                            <Link
-                              className="btn-link"
-                              to={
-                                "/course/" +
-                                params.id +
-                                "/lecture/" +
-                                id +
-                                "/form"
-                              }
-                              state={action}
-                            >
-                              <img src={pen} alt="edit" width={18}/>
-                            </Link>
-                          </button>
-                          <button className="btn btn-del">
-                            <Link
-                              className="btn-link"
-                              to={
-                                "/course/" +
-                                params.id +
-                                "/lecture/" +
-                                id +
-                                "/del"
-                              }
-                            >
-                              <img src={trash} alt="delete" width={18}/>
-                            </Link>
-                          </button>
+                          <Link
+                            className="btn-link"
+                            to={
+                              "/course/" +
+                              params.id +
+                              "/lecture/" +
+                              id +
+                              "/new_qr"
+                            }
+                          >
+                            <button className="btn btn-edit">
+                              <img src={refresh} alt="regenerate" width={18} />{" "}
+                              {"  "}
+                              <img src={qr} alt="qr" width={18} />
+                            </button>
+                          </Link>
+                          <Link
+                            className="btn-link"
+                            to={
+                              "/course/" +
+                              params.id +
+                              "/lecture/" +
+                              id +
+                              "/form"
+                            }
+                            state={action}
+                          >
+                            <button className="btn btn-edit">
+                              <img src={pen} alt="edit" width={18} />
+                            </button>
+                          </Link>
+                          <Link
+                            className="btn-link"
+                            to={
+                              "/course/" + params.id + "/lecture/" + id + "/del"
+                            }
+                          >
+                            <button className="btn btn-del">
+                              <img src={trash} alt="delete" width={18} />
+                            </button>
+                          </Link>
                         </td>
                       </tr>
-                    </>
                   );
                 })}
               </tbody>

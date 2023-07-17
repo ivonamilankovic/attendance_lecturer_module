@@ -5,13 +5,13 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 import Home from "./components/Home";
 import FormCourse from "./components/FormCourse";
-import CreateCourse from "./components/CreateCourse";
+import CreateCourse from "./functions/CreateCourse";
 import CourseLecturesList from "./components/CourseLecturesList";
-import CreateNewQr from "./components/CreateNewQr";
-import EditLecture from "./components/EditLecture";
+import CreateNewQr from "./functions/CreateNewQr";
+import EditLecture from "./functions/EditLecture";
 import FormLecture from "./components/FormLecture";
-import CreateLecture from "./components/CreateLecture";
-import DeleteLecture from "./components/DeleteLecture";
+import CreateLecture from "./functions/CreateLecture";
+import DeleteLecture from "./functions/DeleteLecture";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { KEY_USER_TOKEN, ROLES } from "../constants";
+import { KEY_USER_TOKEN } from "../constants";
 import Loading from "./Loading";
 import { useUser } from "../hooks/useUser";
 import CoursesList from "./CoursesList";

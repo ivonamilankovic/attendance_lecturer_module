@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
 import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
@@ -13,17 +13,27 @@ function FormLecture() {
   const params = useParams();
   const location = useLocation();
   const action = location.state;
-  const { data, load } = useApi("GET", "Lecture", params.lid > 0 ? "/" + params.lid : "");
+  const { data, load } = useApi(
+    "GET",
+    "Lecture",
+    params.lid > 0 ? "/" + params.lid : ""
+  );
   const token =
-  localStorage.getItem(KEY_USER_TOKEN) !== ""
-    ? localStorage.getItem(KEY_USER_TOKEN)
-    : null;
-const { currentUser, load : userload } = useUser(token);
+    localStorage.getItem(KEY_USER_TOKEN) !== ""
+      ? localStorage.getItem(KEY_USER_TOKEN)
+      : null;
+  const { currentUser, load: userload, success } = useUser(token);
 
   if (load || userload) {
     return <Loading />;
   }
 
+  if (success === false) {
+    return <Navigate to="/logout" />;
+  }
+  if (!token) {
+    return <Navigate to="/logout" />;
+  }
   return (
     <>
       <Header />
@@ -54,16 +64,27 @@ const { currentUser, load : userload } = useUser(token);
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <br />
-          <button className="btn">
-            <Link
+          <Link
             className="btn-link"
-              to={action === "edit" ?"/course/" + params.id + "/lecture/" + params.lid + "/" + action
-            : "/course/" + params.id + "/lecture/" + action + "/" + currentUser.id}
-              state={lectureData}
-            >
-              Save
-            </Link>
-          </button>
+            to={
+              action === "edit"
+                ? "/course/" +
+                  params.id +
+                  "/lecture/" +
+                  params.lid +
+                  "/" +
+                  action
+                : "/course/" +
+                  params.id +
+                  "/lecture/" +
+                  action +
+                  "/" +
+                  currentUser.id
+            }
+            state={lectureData}
+          >
+            <button className="btn">Save</button>
+          </Link>
         </div>
       </div>
     </>

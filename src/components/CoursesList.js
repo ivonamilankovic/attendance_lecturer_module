@@ -8,7 +8,7 @@ import { ROLES } from "../constants";
 
 function CoursesList({ currentUser }) {
   const [courses, setCourses] = useState([]);
-  //const [filterLang, setFilterLang] = useState("");
+  //const [filterLang, setFilterLang] = useState(""); //TODO filter?
   //const [filterProfile, setFilterProfile] = useState("");
   let urlParam = "?" + getParams();
   const { data, load } = useApi("GET", "Course", urlParam);
@@ -47,11 +47,9 @@ function CoursesList({ currentUser }) {
         <div className="logged-person">
           logged as: {currentUser.firstName} {currentUser.lastName}
         </div>
-        <button className="btn">
-          <Link to="/course/form" className="btn-link">
-            Add new course
-          </Link>
-        </button>
+        <Link to="/course/form" className="btn-link">
+          <button className="btn"> Add new course</button>
+        </Link>
         {/* <div className="filters"> 
           //btn here
           <div>
@@ -133,14 +131,12 @@ function CoursesList({ currentUser }) {
                           : 0 + parseInt(lecturesNumForProfessor)}
                       </p>
                     </div>
-                    <button className="btn card-btn">
-                      <Link
-                        className="btn-link"
-                        to={"/course/" + id + "/lectures"}
-                      >
-                        See more...
-                      </Link>
-                    </button>
+                    <Link
+                      className="btn-link"
+                      to={"/course/" + id + "/lectures"}
+                    >
+                      <button className="btn card-btn">See more...</button>
+                    </Link>
                   </div>
                 );
               })}

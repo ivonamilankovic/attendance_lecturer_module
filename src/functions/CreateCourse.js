@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useApi from "../hooks/useApi";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 
 function CreateCourse() {
   const location = useLocation();

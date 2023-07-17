@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN, ROLES } from "../constants";
 import useApi from "../hooks/useApi";
 import { useUser } from "../hooks/useUser";
@@ -15,7 +15,9 @@ function FormCourse() {
   const [assistantId, setAssistantId] = useState(0);
   const [courseLanguages, setCourseLanguages] = useState([]);
   const [courseStudyProfiles, setCourseStudyProfiles] = useState([]);
-  const { currentUser, load } = useUser(localStorage.getItem(KEY_USER_TOKEN));
+  const { currentUser, load, success } = useUser(
+    localStorage.getItem(KEY_USER_TOKEN)
+  );
   const { data: assistants, load: load3 } = useApi("GET", "User");
   const content = {
     name: name,
@@ -64,6 +66,9 @@ function FormCourse() {
     }
   }, [currentUser]);
 
+  if (success === false) {
+    return <Navigate to="/logout" />;
+  }
   if (load || load3) {
     return <Loading />;
   }
@@ -157,11 +162,9 @@ function FormCourse() {
               optionValueIsName={false}
             />
             <br />
-            <button className="btn">
-              <Link className="btn-link" to="/course/create" state={content}>
-                Create
-              </Link>
-            </button>
+            <Link className="btn-link" to="/course/create" state={content}>
+              <button className="btn"> Create </button>
+            </Link>
           </div>
         </div>
       </>
