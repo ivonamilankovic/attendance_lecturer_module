@@ -112,73 +112,73 @@ function CourseLecturesList() {
                   const d = new Date(date);
                   i++;
                   return (
-                      <tr key={id}>
-                        <td>{i}</td>
-                        <td>{name}</td>
-                        <td>
-                          {description.length > 20
-                            ? description.substring(0, 20) + "..."
-                            : description}
-                        </td>
-                        <td>
-                          {lecturer.firstName} {lecturer.lastName}
-                        </td>
-                        <td>
-                          {d.getDate()}.{d.getMonth() + 1}.{d.getFullYear()}.{" "}
-                          {d.getHours()}:{d.getMinutes()}
-                        </td>
-                        <td>
-                          <button
-                            className="btn"
-                            onClick={() => openPicture(qrCode.imageName)}
-                          >
-                            show QR
+                    <tr key={id}>
+                      <td>{i}</td>
+                      <td>
+                        <Link className="btn-link" to={"/lecture/" + id + "/attendances"}>
+                          {name}
+                        </Link>
+                      </td>
+                      <td>
+                        {description.length > 20
+                          ? description.substring(0, 20) + "..."
+                          : description}
+                      </td>
+                      <td>
+                        {lecturer.firstName} {lecturer.lastName}
+                      </td>
+                      <td>
+                        {d.getDate()}.{d.getMonth() + 1}.{d.getFullYear()}.{" "}
+                        {d.getHours()}:{d.getMinutes()}
+                      </td>
+                      <td>
+                        <button
+                          className="btn"
+                          onClick={() => openPicture(qrCode.imageName)}
+                        >
+                          show QR
+                        </button>
+                      </td>
+                      <td className="options-btns">
+                        <Link
+                          className="btn-link"
+                          to={
+                            "/course/" +
+                            params.id +
+                            "/lecture/" +
+                            id +
+                            "/new_qr"
+                          }
+                        >
+                          <button className="btn btn-edit">
+                            <img src={refresh} alt="regenerate" width={18} />{" "}
+                            {"  "}
+                            <img src={qr} alt="qr" width={18} />
                           </button>
-                        </td>
-                        <td className="options-btns">
-                          <Link
-                            className="btn-link"
-                            to={
-                              "/course/" +
-                              params.id +
-                              "/lecture/" +
-                              id +
-                              "/new_qr"
-                            }
-                          >
-                            <button className="btn btn-edit">
-                              <img src={refresh} alt="regenerate" width={18} />{" "}
-                              {"  "}
-                              <img src={qr} alt="qr" width={18} />
-                            </button>
-                          </Link>
-                          <Link
-                            className="btn-link"
-                            to={
-                              "/course/" +
-                              params.id +
-                              "/lecture/" +
-                              id +
-                              "/form"
-                            }
-                            state={action}
-                          >
-                            <button className="btn btn-edit">
-                              <img src={pen} alt="edit" width={18} />
-                            </button>
-                          </Link>
-                          <Link
-                            className="btn-link"
-                            to={
-                              "/course/" + params.id + "/lecture/" + id + "/del"
-                            }
-                          >
-                            <button className="btn btn-del">
-                              <img src={trash} alt="delete" width={18} />
-                            </button>
-                          </Link>
-                        </td>
-                      </tr>
+                        </Link>
+                        <Link
+                          className="btn-link"
+                          to={
+                            "/course/" + params.id + "/lecture/" + id + "/form"
+                          }
+                          state={action}
+                        >
+                          <button className="btn btn-edit">
+                            <img src={pen} alt="edit" width={18} />
+                          </button>
+                        </Link>
+                        <Link
+                          className="btn-link"
+                          to={
+                            "/course/" + params.id + "/lecture/" + id + "/del"
+                          }
+                        >
+                          <button className="btn btn-del">
+                            <img src={trash} alt="delete" width={18} />
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
                   );
                 })}
               </tbody>

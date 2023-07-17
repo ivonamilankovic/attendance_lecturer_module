@@ -12,6 +12,11 @@ import EditLecture from "./functions/EditLecture";
 import FormLecture from "./components/FormLecture";
 import CreateLecture from "./functions/CreateLecture";
 import DeleteLecture from "./functions/DeleteLecture";
+import LectureAttendancesList from "./components/LectureAttendancesList";
+import FormAttendanceNotes from "./components/FormAttendanceNotes";
+import CreateNotes from "./functions/CreateNotes";
+import EditPresence from "./functions/EditPresence";
+import DeleteAttendance from "./functions/DeleteAttendance";
 
 function App() {
   return (
@@ -30,10 +35,33 @@ function App() {
         />
         <Route path="/course/:id/lecture/:lid/form" element={<FormLecture />} />
         <Route path="/course/:id/lecture/:lid/edit" element={<EditLecture />} />
-        <Route path="/course/:id/lecture/:lid/del" element={<DeleteLecture />} />
+        <Route
+          path="/course/:id/lecture/:lid/del"
+          element={<DeleteLecture />}
+        />
         <Route
           path="/course/:id/lecture/create/:userid"
           element={<CreateLecture />}
+        />
+        <Route
+          path="/lecture/:lid/attendances"
+          element={<LectureAttendancesList />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/:aid/form"
+          element={<FormAttendanceNotes />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/:aid/notes/:index"
+          element={<CreateNotes />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/:aid/presence/:index"
+          element={<EditPresence />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/:aid/del"
+          element={<DeleteAttendance />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

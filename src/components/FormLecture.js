@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
 import useApi from "../hooks/useApi";
@@ -48,7 +48,7 @@ function FormLecture() {
             id="name"
             name="name"
             type="text"
-            value={name ? name : data.name ? data.name : ""}
+            value={name ? name : data.name ? data.name : ""} //TODO fix
             onChange={(e) => setName(e.target.value)}
           />
           <br />

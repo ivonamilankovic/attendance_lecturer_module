@@ -51,15 +51,12 @@ body {
 }
 .btn-edit{
   background-color: rgb(255, 174, 0);
-  width: 45px; 
+  width: 55px; 
   margin-right: 12px;
-}
-.btn-edit:first-of-type{
-  width: fit-content;
 }
 .btn-del{
   background-color: rgb(201, 9, 9);
-  width: 45px;
+  width: 55px;
 }
 .btn-edit:hover, .btn-del:hover{
   background-color: transparent !important;
@@ -248,8 +245,10 @@ header a:hover{
   display: flex;
   justify-content: space-evenly;
 }
-
-
+/*attendances*/
+.notes{
+  display: inline;
+}
 /*loader*/
 .lds-ring {
   display: inline-block;
