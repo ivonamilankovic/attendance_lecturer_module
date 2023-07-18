@@ -20,6 +20,8 @@ import DeleteAttendance from "./functions/DeleteAttendance";
 import FormAttendance from "./components/FormAttendance";
 import CreateAttendance from "./functions/CreateAttendance";
 import DownloadAttendanceExcel from "./functions/DownloadAttendanceExcel";
+import Statistics from "./components/Statistics";
+import StatisticByStudent from "./components/StatisticByStudent";
 
 function App() {
   return (
@@ -78,6 +80,8 @@ function App() {
           path="/lecture/:lid/attendance/:aid/del"
           element={<DeleteAttendance />}
         />
+        <Route path="/statistics" element={<Statistics />} />
+        <Route path="/statistic/:cid" element={<StatisticByStudent />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

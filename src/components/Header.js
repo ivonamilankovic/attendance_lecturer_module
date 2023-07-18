@@ -15,7 +15,7 @@ function Header() {
         {loggedIn && (
           <>
             <Link to="/dashboard">Dashboard</Link>
-            <Link to="/">Statistics</Link>
+            <Link to="/statistics">Statistics</Link>
           </>
         )}
       </div>
