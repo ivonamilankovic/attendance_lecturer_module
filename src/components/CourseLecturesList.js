@@ -140,7 +140,7 @@ function CourseLecturesList() {
                       </td>
                       <td>
                         <button
-                          className="btn"
+                          className="btn btn-showqr"
                           onClick={() => openPicture(qrCode.imageName)}
                         >
                           show QR
