@@ -24,19 +24,15 @@ function CourseLecturesList() {
   const { currentUser, load, success } = useUser(token);
   let i = 0;
   let action = "create";
-
+  const createContent = { action: action };
   useMemo(() => {
     if (c) {
       setCourse(c);
-    } else {
-      setCourse();
     }
   }, [c]);
   useMemo(() => {
     if (l) {
       setLectures(l);
-    } else {
-      setLectures([]);
     }
   }, [l]);
 
@@ -80,10 +76,9 @@ function CourseLecturesList() {
                 : 0 + parseInt(course.lecturesNumForProfessor)}
             </p>
           </div>
-
           <Link
             className="btn-link"
-            state={action}
+            state={createContent}
             to={"/course/" + params.id + "/lecture/0/form"}
           >
             {" "}
@@ -110,12 +105,21 @@ function CourseLecturesList() {
                     lecture;
                   action = "edit";
                   const d = new Date(date);
+                  const content = {
+                    action: action,
+                    name: name,
+                    description: description,
+                  };
+
                   i++;
                   return (
                     <tr key={id}>
                       <td>{i}</td>
                       <td>
-                        <Link className="btn-link" to={"/lecture/" + id + "/attendances"}>
+                        <Link
+                          className="table-link"
+                          to={"/lecture/" + id + "/attendances"}
+                        >
                           {name}
                         </Link>
                       </td>
@@ -129,7 +133,10 @@ function CourseLecturesList() {
                       </td>
                       <td>
                         {d.getDate()}.{d.getMonth() + 1}.{d.getFullYear()}.{" "}
-                        {d.getHours()}:{d.getMinutes()}
+                        {d.getHours() < 10 ? "0" + d.getHours() : d.getHours()}:
+                        {d.getMinutes() < 10
+                          ? "0" + d.getMinutes()
+                          : d.getMinutes()}
                       </td>
                       <td>
                         <button
@@ -161,7 +168,7 @@ function CourseLecturesList() {
                           to={
                             "/course/" + params.id + "/lecture/" + id + "/form"
                           }
-                          state={action}
+                          state={content}
                         >
                           <button className="btn btn-edit">
                             <img src={pen} alt="edit" width={18} />

@@ -15,8 +15,6 @@ function CoursesList({ currentUser }) {
   useMemo(() => {
     if (data) {
       setCourses(data);
-    } else {
-      setCourses([]);
     }
   }, [data]);
 

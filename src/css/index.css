@@ -50,16 +50,35 @@ body {
   color: var(--light-beige);
 }
 .btn-edit{
-  background-color: rgb(255, 174, 0);
+  background-color: rgb(255, 201, 84);
   width: 55px; 
   margin-right: 12px;
 }
 .btn-del{
-  background-color: rgb(201, 9, 9);
+  background-color: rgb(255, 37, 37);
   width: 55px;
 }
 .btn-edit:hover, .btn-del:hover{
   background-color: transparent !important;
+}
+.btn-download{
+  background-color: rgb(123, 218, 247);
+  width: fit-content;
+  padding: 15px;
+  display: flex;
+  margin: 25px;
+}
+.btn-download img{
+  display: block;
+  padding-left: 4px;
+}
+.btn-download span{
+  display: block;
+  align-self: center;
+}
+.btn-download:hover{
+  color: black !important;
+  background-color: rgb(147, 219, 241) !important;
 }
 .form{
   width: 300px;
@@ -246,6 +265,10 @@ header a:hover{
   justify-content: space-evenly;
 }
 /*attendances*/
+.table-link{
+  text-decoration: none;
+  color: black;
+}
 .notes{
   display: inline;
 }

@@ -12,19 +12,22 @@ function FormLecture() {
   let lectureData = { name: name, description: desc };
   const params = useParams();
   const location = useLocation();
-  const action = location.state;
-  const { data, load } = useApi(
-    "GET",
-    "Lecture",
-    params.lid > 0 ? "/" + params.lid : ""
-  );
+  const content = location.state;
+  useEffect(() => {
+    if (content.name) {
+      setName(content.name);
+    }
+    if (content.description) {
+      setDesc(content.description);
+    }
+  }, []);
   const token =
     localStorage.getItem(KEY_USER_TOKEN) !== ""
       ? localStorage.getItem(KEY_USER_TOKEN)
       : null;
   const { currentUser, load: userload, success } = useUser(token);
 
-  if (load || userload) {
+  if (userload) {
     return <Loading />;
   }
 
@@ -38,7 +41,7 @@ function FormLecture() {
     <>
       <Header />
       <div>
-        <h1 className="title">{action} lecture</h1>
+        <h1 className="title">{content.action} lecture</h1>
         <div className="form">
           <label htmlFor="name" className="text">
             Name of lecture:
@@ -48,7 +51,7 @@ function FormLecture() {
             id="name"
             name="name"
             type="text"
-            value={name ? name : data.name ? data.name : ""} //TODO fix
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <br />
@@ -60,24 +63,24 @@ function FormLecture() {
             id="desc"
             name="desc"
             type="text"
-            value={desc ? desc : data.description ? data.description : ""}
+            value={desc}
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <br />
           <Link
             className="btn-link"
             to={
-              action === "edit"
+              content.action === "edit"
                 ? "/course/" +
                   params.id +
                   "/lecture/" +
                   params.lid +
                   "/" +
-                  action
+                  content.action
                 : "/course/" +
                   params.id +
                   "/lecture/" +
-                  action +
+                  content.action +
                   "/" +
                   currentUser.id
             }

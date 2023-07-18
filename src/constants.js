@@ -7,3 +7,4 @@ export const ROLES = {
   ROLE_USER: "User",
 };
 export const KEY_USER_TOKEN = "user_token";
+export const XLSX_FILE_NAME = "StudentAttendances.xlsx";

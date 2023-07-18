@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
-import { KEY_USER_TOKEN } from "../constants";
+import { KEY_USER_TOKEN, XLSX_FILE_NAME } from "../constants";
 import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
 import Header from "./Header";
@@ -9,6 +9,7 @@ import trash from "../images/trash-can.png";
 import note from "../images/notes.png";
 import absence from "../images/false.png";
 import presence from "../images/checked.png";
+import excel from "../images/excel.png";
 
 function LectureAttendancesList() {
   const [lecture, setLecture] = useState();
@@ -72,8 +73,22 @@ function LectureAttendancesList() {
               {d.getHours()}:{d.getMinutes()}
             </p>
           </div>
-          <Link className="btn-link">
+          <Link
+            className="btn-link"
+            to={"/lecture/" + params.lid + "/attendance/form"}
+          >
             <button className="btn">Add new attendance</button>
+          </Link>
+        </div>
+        <div>
+          <Link
+            className="btn-link"
+            to={"/lecture/" + params.lid + "/attendance/excel"}
+          >
+            <button className="btn btn-download">
+              <span>Download list as</span>{" "}
+              <img src={excel} alt="excel" width={24} />{" "}
+            </button>
           </Link>
         </div>
         {attendances.length > 0 ? (
@@ -108,7 +123,13 @@ function LectureAttendancesList() {
                       </td>
                       <td>
                         {d2.getDate()}.{d2.getMonth() + 1}.{d2.getFullYear()}.{" "}
-                        {d2.getHours()}:{d2.getMinutes()}
+                        {d2.getHours() < 10
+                          ? "0" + d2.getHours()
+                          : d2.getHours()}
+                        :
+                        {d2.getMinutes() < 10
+                          ? "0" + d2.getMinutes()
+                          : d2.getMinutes()}
                       </td>
                       <td>{present ? "yes" : "no"}</td>
                       <td>
@@ -123,7 +144,7 @@ function LectureAttendancesList() {
                             params.lid +
                             "/attendance/" +
                             a.id +
-                            "/form"
+                            "/form/notes"
                           }
                         >
                           <button className="btn btn-edit btn-note">

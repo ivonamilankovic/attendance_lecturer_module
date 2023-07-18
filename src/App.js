@@ -17,6 +17,9 @@ import FormAttendanceNotes from "./components/FormAttendanceNotes";
 import CreateNotes from "./functions/CreateNotes";
 import EditPresence from "./functions/EditPresence";
 import DeleteAttendance from "./functions/DeleteAttendance";
+import FormAttendance from "./components/FormAttendance";
+import CreateAttendance from "./functions/CreateAttendance";
+import DownloadAttendanceExcel from "./functions/DownloadAttendanceExcel";
 
 function App() {
   return (
@@ -48,7 +51,19 @@ function App() {
           element={<LectureAttendancesList />}
         />
         <Route
-          path="/lecture/:lid/attendance/:aid/form"
+          path="/lecture/:lid/attendance/form"
+          element={<FormAttendance />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/excel"
+          element={<DownloadAttendanceExcel />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/create/:index"
+          element={<CreateAttendance />}
+        />
+        <Route
+          path="/lecture/:lid/attendance/:aid/form/notes"
           element={<FormAttendanceNotes />}
         />
         <Route
