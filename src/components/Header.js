@@ -4,7 +4,7 @@ import icon from "../images/title-icon.png";
 
 function Header() {
   const loggedIn = localStorage.getItem(KEY_USER_TOKEN) !== "" ? true : false;
-  //TODO fix routes
+
   return (
     <header>
       <div className="header-left">
@@ -22,7 +22,7 @@ function Header() {
       <div className="header-right">
         {loggedIn ? (
           <>
-            <Link to="/">My profile</Link>
+            <Link to="/profile">My profile</Link>
             <Link to="/logout">Log out</Link>
           </>
         ) : (

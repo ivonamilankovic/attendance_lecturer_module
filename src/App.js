@@ -22,6 +22,9 @@ import CreateAttendance from "./functions/CreateAttendance";
 import DownloadAttendanceExcel from "./functions/DownloadAttendanceExcel";
 import Statistics from "./components/Statistics";
 import StatisticByStudent from "./components/StatisticByStudent";
+import MyProfile from "./components/MyProfile";
+import EditProfile from "./functions/EditProfile";
+import EditPassword from "./functions/EditPassword";
 
 function App() {
   return (
@@ -82,6 +85,9 @@ function App() {
         />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/statistic/:cid" element={<StatisticByStudent />} />
+        <Route path="/profile" element={<MyProfile />} />
+        <Route path="/profile/:id/save-data" element={<EditProfile />} />
+        <Route path="/profile/:id/change-pass" element={<EditPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

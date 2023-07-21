@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Header from "./Header";
 import Loading from "./Loading";
 import Select from "./Select";
@@ -37,6 +37,9 @@ function CoursesList({ currentUser }) {
 
   if (load) {
     return <Loading />;
+  }
+  if(!currentUser){
+    return <Navigate to="/logout"/>;
   }
   if (courses) {
     return (

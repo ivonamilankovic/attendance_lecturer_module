@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
 import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
@@ -17,7 +17,7 @@ function StatisticByStudent() {
     localStorage.getItem(KEY_USER_TOKEN) !== ""
       ? localStorage.getItem(KEY_USER_TOKEN)
       : null;
-  const { currentUser, load } = useUser(token);
+  const { currentUser, load, success } = useUser(token);
 
   const { data, load: loadData } = useApi(
     "GET",
@@ -38,7 +38,12 @@ function StatisticByStudent() {
   if (load || loadData) {
     return <Loading />;
   }
-
+  if (success === false) {
+    return <Navigate to="/logout" />;
+  }
+  if (!token) {
+    return <Navigate to="/logout" />;
+  }
   return (
     <>
       <Header />

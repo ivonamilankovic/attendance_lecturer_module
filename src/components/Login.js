@@ -9,6 +9,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
+  const [invalidCred, setInvalidCred] = useState(false);
 
   async function login() {
     setLoading(true);
@@ -28,17 +29,13 @@ function Login() {
         if (r.Token) {
           setToken(r.Token);
           localStorage.setItem(KEY_USER_TOKEN, r.Token);
+        } else {
+          setInvalidCred(true);
         }
         setLoading(false);
       })
       .catch((e) => {
         console.log(e);
-        document.getElementById("email").classList.add("bad-input");
-        document.getElementById("email").value = "";
-        document.getElementById("password").classList.add("bad-input");
-        document.getElementById("password").value = "";
-        document.getElementById("error-msg").innerHTML = "Invalid credentials.";
-        document.getElementById("error-msg").style.display = "block";
       });
   }
 
@@ -83,7 +80,12 @@ function Login() {
       <div>
         <h1 className="title">Log in</h1>
         <form method="post" className="form">
-          <div id="error-msg" style={{ display: "none" }}></div>
+          <div
+            id="error-msg"
+            style={{ display: invalidCred ? "block" : "none" }}
+          >
+            {invalidCred && "Invalid credentials."}
+          </div>
           <label htmlFor="email" className="text">
             Email:
           </label>
@@ -94,6 +96,7 @@ function Login() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className={invalidCred ? "bad-input" : ""}
           />
           <br />
           <label htmlFor="password" className="text">
@@ -106,6 +109,7 @@ function Login() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className={invalidCred ? "bad-input" : ""}
           />
         </form>
         <button
