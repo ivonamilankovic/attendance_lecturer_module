@@ -309,6 +309,10 @@ header a:hover{
 .statistic-card-btn{
   width: 450px;
 }
+.statistic .no-data{
+  margin-bottom: 0;
+  width: 100%;
+}
 /*profile*/
 .profile-title{
   margin: 20px auto;

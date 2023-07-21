@@ -1,19 +1,13 @@
 import { useMemo, useState } from "react";
-import {Navigate} from "react-router-dom";
-import { KEY_USER_TOKEN, ROLES } from "../constants";
+import { Navigate } from "react-router-dom";
+import { ROLES } from "../constants";
 import useApi from "../hooks/useApi";
-import useUser from "../hooks/useUser";
 import CourseStatisticCard from "./CourseStatisticCard";
 import Header from "./Header";
 import Loading from "./Loading";
 
-function Statistics() {
+function Statistics({ currentUser }) {
   const [courses, setCourses] = useState([]);
-  const token =
-    localStorage.getItem(KEY_USER_TOKEN) !== ""
-      ? localStorage.getItem(KEY_USER_TOKEN)
-      : null;
-  const { currentUser, load, success } = useUser(token);
 
   let urlParam = "?" + getParams();
   const { data, load: loadData } = useApi("GET", "Course", urlParam);
@@ -31,13 +25,10 @@ function Statistics() {
     }
   }
 
-  if (load || loadData) {
+  if (loadData) {
     return <Loading />;
   }
-  if (success === false) {
-    return <Navigate to="/logout" />;
-  }
-  if (!token) {
+  if (!currentUser) {
     return <Navigate to="/logout" />;
   }
 
@@ -49,7 +40,7 @@ function Statistics() {
       </div>
       <h2 className="title-smaller">Attendance Statistics</h2>
       {courses.length > 0 ? (
-        <div>
+        <div className="statistic">
           <div className="course-list">
             {courses.map((course) => {
               return <CourseStatisticCard key={course.id} course={course} />;
@@ -58,7 +49,7 @@ function Statistics() {
         </div>
       ) : (
         <div className="no-data">
-          No course attendance statistics available.
+          No courses available for attendance statistics.
         </div>
       )}
     </>

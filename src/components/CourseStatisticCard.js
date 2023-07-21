@@ -46,6 +46,12 @@ function CourseStatisticCard({ course }) {
         </Link>
       </div>
     );
+  } else {
+    return (
+      <div className="no-data">
+        No attendance statistics available for course '{name}'.
+      </div>
+    );
   }
 }
 

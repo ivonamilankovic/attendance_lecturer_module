@@ -20,11 +20,11 @@ import DeleteAttendance from "./functions/DeleteAttendance";
 import FormAttendance from "./components/FormAttendance";
 import CreateAttendance from "./functions/CreateAttendance";
 import DownloadAttendanceExcel from "./functions/DownloadAttendanceExcel";
-import Statistics from "./components/Statistics";
 import StatisticByStudent from "./components/StatisticByStudent";
 import MyProfile from "./components/MyProfile";
 import EditProfile from "./functions/EditProfile";
 import EditPassword from "./functions/EditPassword";
+import PreStatistic from "./components/PreStatistic";
 
 function App() {
   return (
@@ -83,7 +83,7 @@ function App() {
           path="/lecture/:lid/attendance/:aid/del"
           element={<DeleteAttendance />}
         />
-        <Route path="/statistics" element={<Statistics />} />
+        <Route path="/statistics" element={<PreStatistic />} />
         <Route path="/statistic/:cid" element={<StatisticByStudent />} />
         <Route path="/profile" element={<MyProfile />} />
         <Route path="/profile/:id/save-data" element={<EditProfile />} />
