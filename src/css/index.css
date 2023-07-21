@@ -232,6 +232,9 @@ header a:hover{
   display: flex;
   justify-content: space-between;
 }
+.filters div{
+  margin: 0 auto;
+}
 .filters select{
   margin-right: 15px;
 }

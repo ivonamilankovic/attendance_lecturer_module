@@ -10,10 +10,13 @@ import note from "../images/notes.png";
 import absence from "../images/false.png";
 import presence from "../images/checked.png";
 import excel from "../images/excel.png";
+import Select from "./Select";
 
 function LectureAttendancesList() {
   const [lecture, setLecture] = useState();
   const [attendances, setAttendances] = useState([]);
+  const [filterLang, setFilterLang] = useState("");
+  const [filterProfile, setFilterProfile] = useState("");
   const params = useParams();
   const urlParam = "?lectureId=" + params.lid;
   const { data: lec, load: load2 } = useApi("GET", "Lecture", "/" + params.lid);
@@ -43,6 +46,15 @@ function LectureAttendancesList() {
       setAttendances([]);
     }
   }, [att]);
+
+  function handleChange(e, type) {
+    if (type === "L") {
+      setFilterLang(e.target.value);
+    }
+    if (type === "P") {
+      setFilterProfile(e.target.value);
+    }
+  }
 
   if (success === false) {
     return <Navigate to="/logout" />;
@@ -91,6 +103,29 @@ function LectureAttendancesList() {
             </button>
           </Link>
         </div>
+        <div className="filters">
+          <div>
+            <span>Filter students by:</span>
+            <Select
+              nameOfFetchData={"StudyLanguage"}
+              name={"Languages"}
+              multiple={false}
+              handleChange={handleChange}
+              withLabel={false}
+              withBreaks={false}
+              optionValueIsName={true}
+            />
+            <Select
+              nameOfFetchData={"StudyProfile"}
+              name={"Profiles"}
+              multiple={false}
+              handleChange={handleChange}
+              withLabel={false}
+              withBreaks={false}
+              optionValueIsName={true}
+            />
+          </div>
+        </div>
         {attendances.length > 0 ? (
           <>
             <table className="lectures-list-table">
@@ -114,6 +149,34 @@ function LectureAttendancesList() {
                     student: student,
                     notes: notes,
                   };
+                  let matchFilterLang = false;
+                  let matchFilterProfile = false;
+                  if (filterLang) {
+                    matchFilterLang =
+                      student.studyLanguage.languageName === filterLang;
+                  } else {
+                    matchFilterLang = true;
+                  }
+                  if (filterProfile) {
+                    matchFilterProfile =
+                      student.studyProfile.profileName === filterProfile;
+                  } else {
+                    matchFilterProfile = true;
+                  }
+                  if (
+                    filterLang &&
+                    filterProfile &&
+                    !matchFilterLang &&
+                    !matchFilterProfile
+                  ) {
+                    return <></>;
+                  }
+                  if (filterLang && !matchFilterLang) {
+                    return <></>;
+                  }
+                  if (filterProfile && !matchFilterProfile) {
+                    return <></>;
+                  }
                   return (
                     <tr key={id}>
                       <td>{i}</td>

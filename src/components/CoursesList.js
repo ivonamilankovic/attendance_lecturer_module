@@ -8,8 +8,8 @@ import { ROLES } from "../constants";
 
 function CoursesList({ currentUser }) {
   const [courses, setCourses] = useState([]);
-  //const [filterLang, setFilterLang] = useState(""); //TODO filter?
-  //const [filterProfile, setFilterProfile] = useState("");
+  const [filterLang, setFilterLang] = useState("");
+  const [filterProfile, setFilterProfile] = useState("");
   let urlParam = "?" + getParams();
   const { data, load } = useApi("GET", "Course", urlParam);
   useMemo(() => {
@@ -26,20 +26,30 @@ function CoursesList({ currentUser }) {
     }
   }
 
-  /*function handleChange(e, type) {
+  function handleChange(e, type) {
     if (type === "L") {
       setFilterLang(e.target.value);
     }
     if (type === "P") {
       setFilterProfile(e.target.value);
     }
-  }*/
+  }
+
+  function inArray(array, name, value) {
+    let flag = false;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i][name] === value) {
+        flag = true;
+      }
+    }
+    return flag;
+  }
 
   if (load) {
     return <Loading />;
   }
-  if(!currentUser){
-    return <Navigate to="/logout"/>;
+  if (!currentUser) {
+    return <Navigate to="/logout" />;
   }
   if (courses) {
     return (
@@ -51,8 +61,7 @@ function CoursesList({ currentUser }) {
         <Link to="/course/form" className="btn-link">
           <button className="btn"> Add new course</button>
         </Link>
-        {/* <div className="filters"> 
-          //btn here
+        <div className="filters">
           <div>
             <span>Filter by:</span>
             <Select
@@ -74,7 +83,7 @@ function CoursesList({ currentUser }) {
               optionValueIsName={true}
             />
           </div>
-        </div>*/}
+        </div>
         {courses.length > 0 ? (
           <div>
             <div className="course-list">
@@ -89,30 +98,36 @@ function CoursesList({ currentUser }) {
                   languages,
                   studyProfiles,
                 } = course;
-                {
-                  /*let matchFilterLang = false;
-              let matchFilterProfile = false;
-              if (filterLang) {
-                matchFilterLang = Object.values(languages).includes(filterLang);
-              }
-              if (filterProfile) {
-                matchFilterProfile =
-                  Object.values(studyProfiles).includes(filterProfile);
-              }
-              if (
-                filterLang &&
-                filterProfile &&
-                !matchFilterLang &&
-                !matchFilterProfile
-              ) {
-                return <></>;
-              }
-              if (filterLang && !matchFilterLang) {
-                return <></>;
-              }
-              if (filterProfile && !matchFilterProfile) {
-                return <></>;
-              }*/
+
+                let matchFilterLang = false;
+                let matchFilterProfile = false;
+                if (filterLang) {
+                  matchFilterLang = inArray(languages, "language", filterLang);
+                } else {
+                  matchFilterLang = true;
+                }
+                if (filterProfile) {
+                  matchFilterProfile = inArray(
+                    studyProfiles,
+                    "profileName",
+                    filterProfile
+                  );
+                } else {
+                  matchFilterProfile = true;
+                }
+                if (
+                  filterLang &&
+                  filterProfile &&
+                  !matchFilterLang &&
+                  !matchFilterProfile
+                ) {
+                  return <></>;
+                }
+                if (filterLang && !matchFilterLang) {
+                  return <></>;
+                }
+                if (filterProfile && !matchFilterProfile) {
+                  return <></>;
                 }
                 return (
                   <div key={id} className="course-card">

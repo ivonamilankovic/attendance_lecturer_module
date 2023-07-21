@@ -30,7 +30,7 @@ function Select({
           onChange={(e) => handleChange(e, name.charAt(0))}
         >
           {!multiple && (
-            <option key={0} value={0}>
+            <option key={0} value={optionValueIsName ? "" : 0}>
               all {name}
             </option>
           )}
