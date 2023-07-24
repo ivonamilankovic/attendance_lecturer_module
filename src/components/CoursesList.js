@@ -53,13 +53,14 @@ function CoursesList({ currentUser }) {
     return <Navigate to="/logout" />;
   }
   if (courses) {
+    const content = { course: null, action: "create" };
     return (
       <>
         <Header />
         <div className="logged-person">
           logged as: {currentUser.firstName} {currentUser.lastName}
         </div>
-        <Link to="/course/form" className="btn-link">
+        <Link to="/course/form" className="btn-link" state={content}>
           <button className="btn"> Add new course</button>
         </Link>
         <div className="filters">
@@ -130,11 +131,17 @@ function CoursesList({ currentUser }) {
                 if (filterProfile && !matchFilterProfile) {
                   return <></>;
                 }
-                const c = {course: course, action: "edit"};
+                const c = { course: course, action: "edit" };
                 return (
                   <div key={id} className="course-card">
-                    <h3 className="course-title">{name} 
-                    <Link to="/course/form" className="btn-link" state={c}><button className="btn btn-edit btn-header"><img src={pen} alt="edit" width={15}/></button></Link></h3>
+                    <h3 className="course-title">
+                      {name}
+                      <Link to="/course/form" className="btn-link" state={c}>
+                        <button className="btn btn-edit btn-header">
+                          <img src={pen} alt="edit" width={15} />
+                        </button>
+                      </Link>
+                    </h3>
                     <hr />
                     <div className="course-body">
                       {assistant && (

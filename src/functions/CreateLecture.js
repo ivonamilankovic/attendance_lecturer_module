@@ -9,7 +9,7 @@ function CreateLecture() {
   propsData.lecturerId = params.userid;
   propsData.courseId = params.id;
 
-  const { data, load } = useApi("POST", "Lecture", "", propsData); //TODO why 2x?
+  const { data, load } = useApi("POST", "Lecture", "", propsData);
 
   if (load) {
     return <Loading />;

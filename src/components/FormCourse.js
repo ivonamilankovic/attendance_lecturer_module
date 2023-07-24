@@ -20,7 +20,7 @@ function FormCourse() {
     lecturesNumForProfessor: lecturesNumForProfessor,
     lecturesNumForAssistant: lecturesNumForAssistant,
     professorId: professorId,
-    assistantId: assistantId.value,
+    assistantId: assistantId.value ? assistantId.value : 0,
     courseLanguages: filterList(courseLanguages),
     courseStudyProfiles: filterList(courseStudyProfiles),
   };
@@ -35,7 +35,7 @@ function FormCourse() {
 
   const location = useLocation();
   const locState = location.state;
-  const courseData = locState.course;
+  const courseData = locState?.course;
   const [totalTakenLectures, setTotal] = useState(0);
   const [existingAssist, setExAssist] = useState("");
   const [existingLang, setExLang] = useState([]);
@@ -49,7 +49,7 @@ function FormCourse() {
     lecturesNumForAssistent: lecturesNumForAssistant,
     totalTakenLectures: totalTakenLectures,
     professorId: professorId,
-    assistantId: assistantId.value,
+    assistantId: assistantId.value ? assistantId.value : 0,
     courseLanguages: filterList(courseLanguages),
     courseStudyProfiles: filterList(courseStudyProfiles),
   };

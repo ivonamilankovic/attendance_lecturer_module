@@ -9,7 +9,7 @@ function EditPresence() {
     "StudentAttendance",
     "/" + params.aid + "/Presence/" + params.index
   );
-//TODO malo radi malo ne
+
   if (load) {
     return <Loading />;
   }else {
