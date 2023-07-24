@@ -95,12 +95,18 @@ body {
   background-color: transparent !important;
   color: var(--dark-blue) !important;
 }
+.btn-header{
+  display: inline;
+  margin: 0 0 0 8px;
+  padding: 5px;
+  width: fit-content;
+}
 .form{
   width: 300px;
   margin: 40px auto;
   align-items: center;
 }
-input, select, textarea{
+input, select, textarea {
   width: 280px;
   margin-top: 8px;
   margin-bottom: 15px;
@@ -108,6 +114,12 @@ input, select, textarea{
   border: none;
   border-bottom: 1px solid var(--gray);
   background-color: transparent;
+}
+.css-13cymwt-control{
+  border: none !important;
+  border-bottom: 1px solid var(--gray) !important;
+  border-radius: 0 !important;
+  background-color: transparent !important; 
 }
 textarea{
   height: 80px;
@@ -118,11 +130,11 @@ textarea{
 .good-input{
   border-bottom: 1px solid var(--valid) !important;
 }
-input:focus-visible, select:focus-visible{
-  outline: none;
-  border: none;
-  box-shadow: none;
-  border-bottom: 1px solid var(--dark-blue);
+input:focus-visible, select:focus-visible, .css-13cymwt-control:focus-visible{
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--dark-blue) !important;
 }
 /*header*/
 header{
@@ -183,10 +195,12 @@ header a:hover{
   flex-wrap: wrap;
   justify-content: space-evenly;
   width: fit-content;
+  margin: 0 auto ;
 }
 .course-card{
   margin: 20px;
   width: 350px;
+  height: fit-content;
   border: 1px solid var(--gray);
   border-radius: 6px;
   background-color: var(--light-blue);

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { KEY_USER_TOKEN, ROLES } from "../constants";
 import useApi from "../hooks/useApi";
 import { useUser } from "../hooks/useUser";
 import Header from "./Header";
 import Loading from "./Loading";
-import Select from "./Select";
+import Select from "react-select";
 
 function FormCourse() {
   const [name, setName] = useState("");
@@ -15,70 +15,141 @@ function FormCourse() {
   const [assistantId, setAssistantId] = useState(0);
   const [courseLanguages, setCourseLanguages] = useState([]);
   const [courseStudyProfiles, setCourseStudyProfiles] = useState([]);
-  const { currentUser, load, success } = useUser(
-    localStorage.getItem(KEY_USER_TOKEN)
-  );
-  const { data: assistants, load: load3 } = useApi("GET", "User");
-  const content = {
+  const contentCreate = {
     name: name,
     lecturesNumForProfessor: lecturesNumForProfessor,
     lecturesNumForAssistant: lecturesNumForAssistant,
     professorId: professorId,
-    assistantId: assistantId,
-    courseLanguages: courseLanguages,
-    courseStudyProfiles: courseStudyProfiles,
+    assistantId: assistantId.value,
+    courseLanguages: filterList(courseLanguages),
+    courseStudyProfiles: filterList(courseStudyProfiles),
   };
 
-  function handleChange(e, type) {
-    //TODO fix this
-    let value = Array.from(e.target.selectedOptions, (option) => option.value);
-    if (type === "L") {
-      if (courseLanguages.includes(parseInt(value))) {
-        let index = courseLanguages.indexOf(parseInt(value));
-        setCourseLanguages((courseLanguages) =>
-          courseLanguages.splice(index, 1)
-        );
-      } else {
-        setCourseLanguages((courseLanguages) => [
-          ...courseLanguages,
-          parseInt(value),
-        ]);
-      }
-    }
-    if (type === "S") {
-      if (courseStudyProfiles.includes(parseInt(value))) {
-        let index = courseStudyProfiles.indexOf(parseInt(value));
-        setCourseStudyProfiles((courseStudyProfiles) =>
-          courseStudyProfiles.splice(index, 1)
-        );
-      } else {
-        setCourseStudyProfiles((courseStudyProfiles) => [
-          ...courseStudyProfiles,
-          parseInt(value),
-        ]);
-      }
-    }
-  }
+  const { currentUser, load, success } = useUser(
+    localStorage.getItem(KEY_USER_TOKEN)
+  );
+  const { data: assistants, load: load3 } = useApi("GET", "User");
+  const [roleError, setRoleError] = useState(false);
+  const { data: languages, load: load1 } = useApi("GET", "StudyLanguage");
+  const { data: profiles, load: load2 } = useApi("GET", "StudyProfile");
+
+  const location = useLocation();
+  const locState = location.state;
+  const courseData = locState.course;
+  const [totalTakenLectures, setTotal] = useState(0);
+  const [existingAssist, setExAssist] = useState("");
+  const [existingLang, setExLang] = useState([]);
+  const [existingProf, setExProf] = useState([]);
+  const [langOptions, setLangOpt] = useState([]);
+  const [profOptions, setProfOpt] = useState([]);
+  const [assistOptions, setAssistOpt] = useState([]);
+  const contentEdit = {
+    name: name,
+    lecturesNumForProfessor: lecturesNumForProfessor,
+    lecturesNumForAssistent: lecturesNumForAssistant,
+    totalTakenLectures: totalTakenLectures,
+    professorId: professorId,
+    assistantId: assistantId.value,
+    courseLanguages: filterList(courseLanguages),
+    courseStudyProfiles: filterList(courseStudyProfiles),
+  };
 
   useEffect(() => {
     if (currentUser) {
-      setProfessorId(currentUser.id);
+      if (currentUser.role.name !== ROLES.ROLE_PROFESSOR) {
+        setRoleError(true);
+      } else {
+        setProfessorId(currentUser.id);
+      }
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (courseData) {
+      setName(courseData.name);
+      setLecturesNumForProfessor(courseData.lecturesNumForProfessor);
+      setLecturesNumForAssistant(courseData.lecturesNumForAssistent);
+      setTotal(courseData.totalTakenLectures);
+      setExAssist(courseData.assistant.email);
+      setExLang(courseData.languages);
+      setExProf(courseData.studyProfiles);
+    }
+  }, []);
+
+  useEffect(() => {
+    let langOptions = [];
+    let langSelected = [];
+    let profOptions = [];
+    let profSelected = [];
+    let assistOptions = [];
+    if (languages) {
+      languages.forEach((l) => {
+        langOptions.push({ value: l.id, label: l.name });
+        existingLang.forEach((e) => {
+          if (l.name === e.language) {
+            langSelected.push({ value: l.id, label: l.name });
+          }
+        });
+      });
+      setLangOpt(langOptions);
+      setCourseLanguages(langSelected);
+    }
+    if (profiles) {
+      profiles.forEach((l) => {
+        profOptions.push({ value: l.id, label: l.name });
+        existingProf.forEach((e) => {
+          if (l.name === e.profileName) {
+            profSelected.push({ value: l.id, label: l.name });
+          }
+        });
+      });
+      setProfOpt(profOptions);
+      setCourseStudyProfiles(profSelected);
+    }
+    if (assistants) {
+      assistOptions.push({ value: 0, label: "none" });
+      assistants.forEach((a) => {
+        if (a.role.roleName === ROLES.ROLE_ASSISTANT) {
+          assistOptions.push({
+            value: a.id,
+            label: a.firstName + " " + a.lastName,
+          });
+          if (a.email === existingAssist) {
+            setAssistantId({
+              value: a.id,
+              label: a.firstName + " " + a.lastName,
+            });
+          }
+        }
+      });
+      setAssistOpt(assistOptions);
+    }
+  }, [languages, assistants, profiles]);
+
+  function filterList(array) {
+    let newArray = [];
+    array.forEach((el) => {
+      newArray.push(el.value);
+    });
+    return newArray;
+  }
 
   if (success === false) {
     return <Navigate to="/logout" />;
   }
-  if (load || load3) {
+  if (load || load1 || load2 || load3) {
     return <Loading />;
   }
+  if (roleError) {
+    return <Navigate to="/dashboard" />;
+  }
 
-  if (assistants) {
+  if (assistants && languages && profiles) {
     return (
       <>
         <Header />
         <div>
-          <h1 className="title">Create new course</h1>
+          <h1 className="title">{locState.action} course</h1>
           <div className="form">
             <label htmlFor="name" className="text">
               Name of new course:
@@ -120,50 +191,43 @@ function FormCourse() {
               Assistant:
             </label>
             <br />
-            <select
-              id="assistant"
-              name="assistantId"
+            <Select
               value={assistantId}
-              onChange={(e) => setAssistantId(e.target.value)}
+              onChange={setAssistantId}
+              options={assistOptions}
+              placeholder={"Choose assistant..."}
+            />
+            <br />
+            <label className="text">Study languages:</label>
+            <br />
+            <Select
+              isMulti={true}
+              value={courseLanguages}
+              onChange={setCourseLanguages}
+              options={langOptions}
+              placeholder={"Choose languages..."}
+            />
+            <br />
+            <label className="text">Study Profiles:</label>
+            <br />
+            <Select
+              isMulti={true}
+              value={courseStudyProfiles}
+              onChange={setCourseStudyProfiles}
+              options={profOptions}
+              placeholder={"Choose profiles..."}
+            />
+            <br />
+            <Link
+              className="btn-link"
+              to={
+                locState.action === "edit"
+                  ? "/course/" + locState.action + "/" + courseData.id
+                  : "/course/" + locState.action
+              }
+              state={locState.action === "edit" ? contentEdit : contentCreate}
             >
-              <option key={0} value={0}>
-                none
-              </option>
-              {assistants.map((a) => {
-                const { id, firstName, lastName, role } = a;
-                if (role.roleName === ROLES.ROLE_ASSISTANT) {
-                  return (
-                    <option key={id} value={id}>
-                      {firstName} {lastName}
-                    </option>
-                  );
-                }
-                return <></>;
-              })}
-            </select>
-            <br />
-            <Select
-              nameOfFetchData={"StudyLanguage"}
-              name={"Languages"}
-              multiple={true}
-              handleChange={handleChange}
-              withLabel={true}
-              withBreaks={true}
-              optionValueIsName={false}
-            />
-            <br />
-            <Select
-              nameOfFetchData={"StudyProfile"}
-              name={"Study profiles"}
-              multiple={true}
-              handleChange={handleChange}
-              withLabel={true}
-              withBreaks={true}
-              optionValueIsName={false}
-            />
-            <br />
-            <Link className="btn-link" to="/course/create" state={content}>
-              <button className="btn"> Create </button>
+              <button className="btn"> Save </button>
             </Link>
           </div>
         </div>

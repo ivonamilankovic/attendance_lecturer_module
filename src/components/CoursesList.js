@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import Select from "./Select";
 import useApi from "../hooks/useApi";
 import { ROLES } from "../constants";
+import pen from "../images/pen.png";
 
 function CoursesList({ currentUser }) {
   const [courses, setCourses] = useState([]);
@@ -129,9 +130,11 @@ function CoursesList({ currentUser }) {
                 if (filterProfile && !matchFilterProfile) {
                   return <></>;
                 }
+                const c = {course: course, action: "edit"};
                 return (
                   <div key={id} className="course-card">
-                    <h3 className="course-title">{name}</h3>
+                    <h3 className="course-title">{name} 
+                    <Link to="/course/form" className="btn-link" state={c}><button className="btn btn-edit btn-header"><img src={pen} alt="edit" width={15}/></button></Link></h3>
                     <hr />
                     <div className="course-body">
                       {assistant && (

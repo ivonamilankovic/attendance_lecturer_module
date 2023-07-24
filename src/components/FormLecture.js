@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
-import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
 import Header from "./Header";
 import Loading from "./Loading";

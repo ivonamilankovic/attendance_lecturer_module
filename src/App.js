@@ -25,6 +25,7 @@ import MyProfile from "./components/MyProfile";
 import EditProfile from "./functions/EditProfile";
 import EditPassword from "./functions/EditPassword";
 import PreStatistic from "./components/PreStatistic";
+import EditCourse from "./functions/EditCourse";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/course/form" element={<FormCourse />} />
         <Route path="/course/create" element={<CreateCourse />} />
+        <Route path="/course/edit/:id" element={<EditCourse />} />
         <Route path="/course/:id/lectures" element={<CourseLecturesList />} />
         <Route
           path="/course/:id/lecture/:lid/new_qr"
