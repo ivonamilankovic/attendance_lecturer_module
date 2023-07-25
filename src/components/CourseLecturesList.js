@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
-import { KEY_USER_TOKEN } from "../constants";
+import { KEY_USER_TOKEN, BACKEND_URL } from "../constants";
 import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
 import Header from "./Header";
@@ -36,9 +36,22 @@ function CourseLecturesList() {
     }
   }, [l]);
 
-  function openPicture(imageName) {
-    console.log(imageName);
-    //TODO open picture
+  async function openPicture(id) {
+    fetch(BACKEND_URL + "Lecture/QrCode/" + id, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => res.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        document.getElementById("modal").style.display = "block";
+        document.getElementById("modal-img").src = url;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   if (success === false) {
@@ -85,6 +98,20 @@ function CourseLecturesList() {
             <button className="btn">Add new lecture</button>
           </Link>
         </div>
+        <div id="modal" style={{ display: "none" }}>
+          <div id="modal-content">
+            <span
+              id="close"
+              onClick={() =>
+                (document.getElementById("modal").style.display = "none")
+              }
+            >
+              X
+            </span>
+            <p className="title">Scan qr code to register your attendance.</p>
+            <img id="modal-img" src="/" alt="qr code" />
+          </div>
+        </div>
         {lectures.length > 0 ? (
           <>
             <table className="lectures-list-table">
@@ -101,8 +128,7 @@ function CourseLecturesList() {
               </thead>
               <tbody>
                 {lectures.map((lecture) => {
-                  const { id, name, description, lecturer, date, qrCode } =
-                    lecture;
+                  const { id, name, description, lecturer, date } = lecture;
                   action = "edit";
                   const d = new Date(date);
                   const content = {
@@ -141,7 +167,7 @@ function CourseLecturesList() {
                       <td>
                         <button
                           className="btn btn-showqr"
-                          onClick={() => openPicture(qrCode.imageName)}
+                          onClick={() => openPicture(id)}
                         >
                           show QR
                         </button>
