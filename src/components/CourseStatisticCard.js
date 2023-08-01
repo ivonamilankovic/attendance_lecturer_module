@@ -33,7 +33,10 @@ function CourseStatisticCard({ course }) {
           </p>
           <p className="text">
             <b>Percentage of attended lectures:</b>{" "}
-            {statistic.percentageOfStudents}% *
+            {!isNaN(statistic.percentageOfStudents)
+              ? statistic.percentageOfStudents
+              : 0}
+            % *
           </p>
           <small>
             <i>*students who come to more than half lectures</i>
