@@ -314,7 +314,7 @@ header a:hover{
 }
 /*statistic*/
 .statistic-card{
-  height: 328px;
+  height: fit-content;
   width: 450px;
 }
 .statistic-card-body{
