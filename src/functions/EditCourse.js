@@ -13,7 +13,7 @@ function EditCourse() {
     return <Loading />;
   }
   if (data) {
-    return <Navigate to={"/dashboard"} />;
+    return <Navigate to={"/dash"} />;
   }
 }
 

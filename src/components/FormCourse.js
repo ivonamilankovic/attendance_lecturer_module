@@ -141,7 +141,7 @@ function FormCourse() {
     return <Loading />;
   }
   if (roleError) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dash" />;
   }
 
   if (assistants && languages && profiles) {
