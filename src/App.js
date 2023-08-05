@@ -26,6 +26,7 @@ import EditProfile from "./functions/EditProfile";
 import EditPassword from "./functions/EditPassword";
 import PreStatistic from "./components/PreStatistic";
 import EditCourse from "./functions/EditCourse";
+import AdminHome from "./admin/AdminHome";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dash" element={<Dashboard />} />
         <Route path="/course/form" element={<FormCourse />} />
         <Route path="/course/create" element={<CreateCourse />} />
         <Route path="/course/edit/:id" element={<EditCourse />} />
@@ -90,6 +91,7 @@ function App() {
         <Route path="/profile" element={<MyProfile />} />
         <Route path="/profile/:id/save-data" element={<EditProfile />} />
         <Route path="/profile/:id/change-pass" element={<EditPassword />} />
+        <Route path="/admin/*" element={<AdminHome />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

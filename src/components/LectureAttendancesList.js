@@ -152,14 +152,13 @@ function LectureAttendancesList() {
                   let matchFilterLang = false;
                   let matchFilterProfile = false;
                   if (filterLang) {
-                    matchFilterLang =
-                      student.studyLanguage.languageName === filterLang;
+                    matchFilterLang = student.studyLanguage.name === filterLang;
                   } else {
                     matchFilterLang = true;
                   }
                   if (filterProfile) {
                     matchFilterProfile =
-                      student.studyProfile.profileName === filterProfile;
+                      student.studyProfile.name === filterProfile;
                   } else {
                     matchFilterProfile = true;
                   }

@@ -12,7 +12,7 @@ function CreateCourse() {
   }
   if (data) {
     console.log(data)
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dash" />;
   }
 }
 

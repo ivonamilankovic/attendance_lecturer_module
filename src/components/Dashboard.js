@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import { useUser } from "../hooks/useUser";
 import CoursesList from "./CoursesList";
 import { useEffect, useState } from "react";
+import AdminHome from "../admin/AdminHome";
 
 function Dashboard() {
   const token =
@@ -39,6 +40,9 @@ function Dashboard() {
   }
   if (load) {
     return <Loading />;
+  }
+  if (currentUser.role.name === ROLES.ROLE_ADMIN) {
+    return <Navigate to="/admin" />;
   }
   return <CoursesList currentUser={currentUser} />;
 }

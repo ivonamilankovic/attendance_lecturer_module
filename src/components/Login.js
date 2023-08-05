@@ -72,7 +72,7 @@ function Login() {
     return <Loading />;
   }
   if (token || localStorage.getItem(KEY_USER_TOKEN) !== "") {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dash" />;
   }
   return (
     <>

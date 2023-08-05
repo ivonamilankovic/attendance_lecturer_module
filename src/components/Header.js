@@ -14,7 +14,7 @@ function Header() {
         </span>
         {loggedIn && (
           <>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dash">Dashboard</Link>
             <Link to="/statistics">Statistics</Link>
           </>
         )}
