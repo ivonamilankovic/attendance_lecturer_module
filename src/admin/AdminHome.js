@@ -15,10 +15,10 @@ import useUser from "../hooks/useUser";
 import Loading from "../components/Loading";
 import { UserList, UserEdit, UserCreate } from "./User";
 import { RoleCreate, RoleList } from "./Role";
-import { StudentList, StudentCreate } from "./Student";
-import { ProfileList, ProfileCreate } from "./StudyProfile";
-import { LangList, LangCreate } from "./StudyLanguage";
-import { CourseCreate, CourseList } from "./Course";
+import { StudentList, StudentCreate, StudentEdit } from "./Student";
+import { ProfileList, ProfileCreate, ProfileEdit } from "./StudyProfile";
+import { LangList, LangCreate, LangEdit } from "./StudyLanguage";
+import { CourseCreate, CourseEdit, CourseList } from "./Course";
 import { LectureCreate, LectureList } from "./Lecture";
 import { AttendanceList } from "./Attendance";
 
@@ -116,12 +116,14 @@ export default function AdminHome() {
       <Resource
         name="Student"
         list={StudentList}
+        edit={StudentEdit}
         create={StudentCreate}
         icon={SchoolIcon}
       />
       <Resource
         name="StudyProfile"
         list={ProfileList}
+        edit={ProfileEdit}
         create={ProfileCreate}
         icon={BusinessCenterIcon}
         options={{ label: "Study Profiles" }}
@@ -129,6 +131,7 @@ export default function AdminHome() {
       <Resource
         name="StudyLanguage"
         list={LangList}
+        edit={LangEdit}
         create={LangCreate}
         icon={LanguageIcon}
         options={{ label: "Languages" }}
@@ -136,6 +139,7 @@ export default function AdminHome() {
       <Resource
         name="Course"
         list={CourseList}
+        edit={CourseEdit}
         create={CourseCreate}
         icon={LibraryBooksIcon}
       />

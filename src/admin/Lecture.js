@@ -44,9 +44,6 @@ export function LectureCreate(props) {
           label="Lecturer"
           source="lecturerId"
           reference="User"
-          filter={{
-            role: { roleName: ROLES.ROLE_PROFESSOR || ROLES.ROLE_ASSISTANT },
-          }}
         >
           <SelectInput
             optionText={(choice) => `${choice.firstName} ${choice.lastName}`}

@@ -1,14 +1,17 @@
 import {
   List,
   Create,
+  Edit,
   Datagrid,
   SimpleForm,
   TextField,
-  DeleteButton,
+  FunctionField,
   NumberInput,
+  TextInput,
   ReferenceInput,
   SelectInput,
-  FunctionField,
+  EditButton,
+  DeleteButton,
 } from "react-admin";
 
 export function StudentList(props) {
@@ -25,12 +28,12 @@ export function StudentList(props) {
         <TextField source="user.email" label="Email" />
         <TextField source="studyProfile.name" label="Study profile" />
         <TextField source="studyLanguage.name" label="Study language" />
+        <EditButton basepath="/Student" />
         <DeleteButton basepath="/Student" />
       </Datagrid>
     </List>
   );
 }
-
 
 export function StudentCreate(props) {
   return (
@@ -38,7 +41,9 @@ export function StudentCreate(props) {
       <SimpleForm>
         <NumberInput source="index" />
         <ReferenceInput label="User" source="userId" reference="User">
-          <SelectInput optionText="lastName" />
+          <SelectInput
+            optionText={(choice) => `${choice.firstName} ${choice.lastName}`}
+          />
         </ReferenceInput>
         <ReferenceInput
           label="Profile"
@@ -56,5 +61,29 @@ export function StudentCreate(props) {
         </ReferenceInput>
       </SimpleForm>
     </Create>
+  );
+}
+
+export function StudentEdit(props) {
+  return (
+    <Edit title="Edit student" {...props}>
+      <SimpleForm>
+        <TextInput disabled source="index" />
+        <ReferenceInput
+          label="Profile"
+          source="studyProfileId"
+          reference="StudyProfile"
+        >
+          <SelectInput optionText="name" />
+        </ReferenceInput>
+        <ReferenceInput
+          label="Language"
+          source="studyLanguageId"
+          reference="StudyLanguage"
+        >
+          <SelectInput optionText="name" />
+        </ReferenceInput>
+      </SimpleForm>
+    </Edit>
   );
 }
