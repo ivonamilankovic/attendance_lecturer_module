@@ -109,7 +109,7 @@ function FormCourse() {
     if (assistants) {
       assistOptions.push({ value: 0, label: "none" });
       assistants.forEach((a) => {
-        if (a.role.roleName === ROLES.ROLE_ASSISTANT) {
+        if (a.role.name === ROLES.ROLE_ASSISTANT) {
           assistOptions.push({
             value: a.id,
             label: a.firstName + " " + a.lastName,
