@@ -1,12 +1,10 @@
 import {
     List,
-    Edit,
     Create,
     Datagrid,
     SimpleForm,
     TextField,
     TextInput,
-    EditButton,
     DeleteButton,
   } from "react-admin";
   
@@ -16,8 +14,7 @@ import {
         <Datagrid>
           <TextField source="id" />
           <TextField source="name" />
-          <EditButton basePath="/StudyLanguage" />
-          <DeleteButton basePath="/StudyLanguage" />
+          <DeleteButton basepath="/StudyLanguage" />
         </Datagrid>
       </List>
     );
@@ -27,19 +24,9 @@ import {
     return (
       <Create title="Create new study language" {...props}>
         <SimpleForm>
-          <TextInput source="languageName" />
+          <TextInput source="name" />
         </SimpleForm>
       </Create>
-    );
-  }
-  
-  export function LangEdit(props) {
-    return (
-      <Edit title="Edit study language" {...props}>
-        <SimpleForm>
-          <TextInput source="languageName" />
-        </SimpleForm>
-      </Edit>
     );
   }
   

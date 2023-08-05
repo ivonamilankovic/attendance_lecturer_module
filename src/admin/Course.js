@@ -31,14 +31,14 @@ export function CourseList(props) {
           render={(record) =>
             record.lecturesNumForAssistent ? record.lecturesNumForAssistent : 0
           }
-          label="lecturesNumForAssistent"
+          label="Lectures num for assistant"
         />
         <TextField source="totalTakenLectures" />
         <FunctionField
           render={(record) =>
             `${record.professor.firstName} ${record.professor.lastName}`
           }
-          label="professor"
+          label="Professor"
         />
         <FunctionField
           render={(record) =>
@@ -46,7 +46,7 @@ export function CourseList(props) {
               ? `${record.assistant.firstName} ${record.assistant.lastName}`
               : "-"
           }
-          label="assistant"
+          label="Assistant"
         />
         <ArrayField source="languages">
           <SingleFieldList>
@@ -58,7 +58,7 @@ export function CourseList(props) {
             <ChipField source="profileName" size="small" />
           </SingleFieldList>
         </ArrayField>
-        <DeleteButton basePath="/Course" />
+        <DeleteButton basepath="/Course" />
       </Datagrid>
     </List>
   );
@@ -73,7 +73,7 @@ export function CourseCreate(props) {
         <NumberInput source="lecturesNumForAssistent" defaultValue={0} />
         <NumberInput disabled source="totalTakenLectures" defaultValue={0} />
         <ReferenceInput
-          label="professor"
+          label="Professor"
           source="professorId"
           reference="User"
           filter={{ role: { roleName: ROLES.ROLE_PROFESSOR } }}
@@ -83,7 +83,7 @@ export function CourseCreate(props) {
           />
         </ReferenceInput>
         <ReferenceInput
-          label="assistant"
+          label="Assistant"
           source="assistantId"
           reference="User"
           filter={{ role: { roleName: ROLES.ROLE_ASSISTANT } }}

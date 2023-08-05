@@ -20,9 +20,9 @@ export function UserList(props) {
         <TextField source="firstName" />
         <TextField source="lastName" />
         <TextField source="email" />
-        <TextField source="role.roleName" label="role" />
-        <EditButton basePath="/User" />
-        <DeleteButton basePath="/User" />
+        <TextField source="role.roleName" label="Role" />
+        <EditButton basepath="/User" />
+        <DeleteButton basepath="/User" />
       </Datagrid>
     </List>
   );
@@ -49,7 +49,7 @@ export function UserCreate(props) {
         <TextInput source="lastName" />
         <TextInput source="email" />
         <TextInput source="password" />
-        <ReferenceInput label="role" source="roleId" reference="Role">
+        <ReferenceInput label="Role" source="roleId" reference="Role">
           <SelectInput optionText="name" />
         </ReferenceInput>
       </SimpleForm>

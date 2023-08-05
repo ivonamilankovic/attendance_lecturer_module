@@ -21,14 +21,14 @@ export function LectureList(props) {
         <TextField source="name" />
         <TextField source="description" />
         <DateField source="date" showTime={true} />
-        <TextField source="course.name" label="course" />
+        <TextField source="course.name" label="Course" />
         <FunctionField
           render={(record) =>
             `${record.lecturer.firstName} ${record.lecturer.lastName}`
           }
-          label="lecturer"
+          label="Lecturer"
         />
-        <DeleteButton basePath="/Lecture" />
+        <DeleteButton basepath="/Lecture" />
       </Datagrid>
     </List>
   );
@@ -41,7 +41,7 @@ export function LectureCreate(props) {
         <TextInput source="name" />
         <TextInput source="description" multiline />
         <ReferenceInput
-          label="lecturer"
+          label="Lecturer"
           source="lecturerId"
           reference="User"
           filter={{
@@ -52,7 +52,7 @@ export function LectureCreate(props) {
             optionText={(choice) => `${choice.firstName} ${choice.lastName}`}
           />
         </ReferenceInput>
-        <ReferenceInput label="course" source="courseId" reference="Course">
+        <ReferenceInput label="Course" source="courseId" reference="Course">
           <SelectInput optionText="name" />
         </ReferenceInput>
       </SimpleForm>

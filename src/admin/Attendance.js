@@ -13,21 +13,21 @@ export function AttendanceList(props) {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="student.index" label="student" />
+        <TextField source="student.index" label="Student" />
         <DateField source="date" />
-        <TextField source="lecture.name" label="lecture name" />
+        <TextField source="lecture.name" label="Lecture name" />
         <FunctionField
           render={(record) =>
             `${record.lecture.lecturer.firstName} ${record.lecture.lecturer.lastName}`
           }
-          label="lecturer"
+          label="Lecturer"
         />
         <BooleanField source="present" />
         <FunctionField
           render={(record) => (record.notes ? record.notes : "-")}
-          label="notes"
+          label="Notes"
         />
-        <DeleteButton basePath="/StudentAttendance" />
+        <DeleteButton basepath="/StudentAttendance" />
       </Datagrid>
     </List>
   );
