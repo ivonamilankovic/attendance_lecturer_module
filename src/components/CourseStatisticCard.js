@@ -39,7 +39,7 @@ function CourseStatisticCard({ course }) {
             % *
           </p>
           <small>
-            <i>*students who come to more than half lectures</i>
+            <i>*students who come to more than 30% of lectures</i>
           </small>
         </div>
         <Link className="btn-link" to={"/statistic/" + id} state={course}>
