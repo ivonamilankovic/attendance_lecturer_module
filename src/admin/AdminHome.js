@@ -1,4 +1,13 @@
-import { Admin, Resource, fetchUtils, combineDataProviders } from "react-admin";
+import {
+  Admin,
+  Resource,
+  fetchUtils,
+  combineDataProviders,
+  Logout,
+  UserMenu,
+  AppBar,
+  Layout,
+} from "react-admin";
 import simpleRestProvider from "ra-data-simple-rest";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
@@ -9,6 +18,7 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Navigate } from "react-router-dom";
 import { KEY_USER_TOKEN } from "../constants";
 import useUser from "../hooks/useUser";
@@ -95,6 +105,7 @@ const dataProviders = combineDataProviders((resource) => {
 export default function AdminHome() {
   return (
     <Admin
+      layout={MyLayout}
       title="Admin"
       basename="/admin"
       dashboard={DashboardAdmin}
@@ -163,7 +174,11 @@ export function DashboardAdmin() {
   const token = localStorage.getItem(KEY_USER_TOKEN);
   const { currentUser, load } = useUser(token);
   if (load) {
-    return <Loading />;
+    return (
+      <Card style={{ marginTop: 50 }}>
+        <CardHeader title="Loading..." />
+      </Card>
+    );
   }
   if (!token || !currentUser) {
     return <Navigate to="/logout" />;
@@ -180,3 +195,22 @@ export function DashboardAdmin() {
     </Card>
   );
 }
+
+function logout() {
+  let host = window.location.origin;
+  window.location.replace(host + "/logout");
+}
+
+const MyLogoutButton = (props) => (
+  <Logout {...props} icon={<LogoutIcon />} onClick={() => logout()} />
+);
+
+const MyUserMenu = () => (
+  <UserMenu>
+    <MyLogoutButton />
+  </UserMenu>
+);
+
+const MyAppBar = () => <AppBar userMenu={<MyUserMenu />} />;
+
+const MyLayout = (props) => <Layout {...props} appBar={MyAppBar} />;
