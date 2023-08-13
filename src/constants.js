@@ -1,4 +1,4 @@
-export const BACKEND_URL = "https://localhost:7206/api/";
+export const BACKEND_URL = "https://00f5-93-87-124-5.ngrok-free.app/api/";
 export const ROLES = {
   ROLE_ADMIN: "Admin",
   ROLE_PROFESSOR: "Professor",
