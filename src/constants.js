@@ -1,4 +1,5 @@
-export const BACKEND_URL = "https://00f5-93-87-124-5.ngrok-free.app/api/";
+export const BACKEND_URL =
+  "https://attendancewithqrcodes20230814191624.azurewebsites.net/api/";
 export const ROLES = {
   ROLE_ADMIN: "Admin",
   ROLE_PROFESSOR: "Professor",
