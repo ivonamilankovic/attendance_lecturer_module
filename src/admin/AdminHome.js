@@ -32,7 +32,8 @@ import { CourseCreate, CourseEdit, CourseList } from "./Course";
 import { LectureCreate, LectureList } from "./Lecture";
 import { AttendanceList } from "./Attendance";
 
-const apiUrl = "https://localhost:7206/api";
+const apiUrl =
+  "https://attendancewithqrcodes20230814191624.azurewebsites.net/api";
 const token = localStorage.getItem(KEY_USER_TOKEN);
 let options = {};
 options.headers = new Headers({ Accept: "application/json" });
