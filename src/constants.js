@@ -1,5 +1,4 @@
-export const BACKEND_URL =
-  "https://attendancewithqrcodes20230814191624.azurewebsites.net/api/";
+export const BACKEND_URL = "https://localhost:7206/api/";
 export const ROLES = {
   ROLE_ADMIN: "Admin",
   ROLE_PROFESSOR: "Professor",

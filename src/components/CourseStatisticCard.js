@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { ROLES } from "../constants";
 import useApi from "../hooks/useApi";
 
-function CourseStatisticCard({ course }) {
-  const { id, name, assistant } = course;
+function CourseStatisticCard({ course, currentUser }) {
+  const { id, name, assistant, professor } = course;
   const [statistic, setStatistic] = useState([]);
   const { data } = useApi("GET", "StudentAttendance", "/Presence/" + id);
   useMemo(() => {
@@ -18,10 +19,17 @@ function CourseStatisticCard({ course }) {
         <h3 className="course-title">{name}</h3>
         <hr />
         <div className="statistic-card-body">
-          {assistant && (
+          {currentUser.role.name === ROLES.ROLE_PROFESSOR && assistant && (
             <p className="text">
               <b>Assistant:</b> {assistant.firstName} {assistant.lastName}
             </p>
+          )}
+          {currentUser.role.name === ROLES.ROLE_ASSISTANT ? (
+            <p className="text">
+              <b>Professor:</b> {professor.firstName} {professor.lastName}
+            </p>
+          ) : (
+            ""
           )}
           <p className="text">
             <b>Lectures:</b> {statistic.totalTakenLectures} /{" "}

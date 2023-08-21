@@ -47,7 +47,7 @@ function FormAttendance() {
               const { user, index } = student;
               return (
                 <option key={index} value={index}>
-                  {user.firstName} {user.lastName}
+                  ({index})  {user.firstName} {user.lastName}
                 </option>
               );
             })}

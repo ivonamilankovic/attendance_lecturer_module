@@ -43,7 +43,13 @@ function Statistics({ currentUser }) {
         <div className="statistic">
           <div className="course-list">
             {courses.map((course) => {
-              return <CourseStatisticCard key={course.id} course={course} />;
+              return (
+                <CourseStatisticCard
+                  key={course.id}
+                  course={course}
+                  currentUser={currentUser}
+                />
+              );
             })}
           </div>
         </div>

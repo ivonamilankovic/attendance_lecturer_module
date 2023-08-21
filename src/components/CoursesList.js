@@ -60,9 +60,13 @@ function CoursesList({ currentUser }) {
         <div className="logged-person">
           logged as: {currentUser.firstName} {currentUser.lastName}
         </div>
-        <Link to="/course/form" className="btn-link" state={content}>
-          <button className="btn"> Add new course</button>
-        </Link>
+        {currentUser.role.name === ROLES.ROLE_PROFESSOR ? (
+          <Link to="/course/form" className="btn-link" state={content}>
+            <button className="btn"> Add new course</button>
+          </Link>
+        ) : (
+          ""
+        )}
         <div className="filters">
           <div>
             <span>Filter by:</span>
@@ -94,6 +98,7 @@ function CoursesList({ currentUser }) {
                   id,
                   name,
                   assistant,
+                  professor,
                   lecturesNumForProfessor,
                   lecturesNumForAssistent,
                   totalTakenLectures,
@@ -144,10 +149,19 @@ function CoursesList({ currentUser }) {
                     </h3>
                     <hr />
                     <div className="course-body">
-                      {assistant && (
+                      {currentUser.role.name === ROLES.ROLE_PROFESSOR &&
+                        assistant && (
+                          <p className="text">
+                            Assistant: {assistant.firstName}{" "}
+                            {assistant.lastName}
+                          </p>
+                        )}
+                      {currentUser.role.name === ROLES.ROLE_ASSISTANT ? (
                         <p className="text">
-                          Assistant: {assistant.firstName} {assistant.lastName}
+                          Professor: {professor.firstName} {professor.lastName}
                         </p>
+                      ) : (
+                        ""
                       )}
                       <p className="text">
                         Lectures taken: {totalTakenLectures} /

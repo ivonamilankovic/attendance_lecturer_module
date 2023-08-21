@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
-import { KEY_USER_TOKEN, BACKEND_URL } from "../constants";
+import { KEY_USER_TOKEN, BACKEND_URL, ROLES } from "../constants";
 import useApi from "../hooks/useApi";
 import useUser from "../hooks/useUser";
 import Header from "./Header";
@@ -74,12 +74,21 @@ function CourseLecturesList() {
           <div className="course-info">
             <h3>Course info:</h3>
             <p className="text">Name: {course.name}</p>
-            {course.assistant && (
+            {currentUser.role.name === ROLES.ROLE_PROFESSOR &&
+              course.assistant && (
+                <p className="text">
+                  Assistant: {course.assistant.firstName}{" "}
+                  {course.assistant.lastName} / number of lectures:
+                  {course.lecturesNumForAssistent}
+                </p>
+              )}
+            {currentUser.role.name === ROLES.ROLE_ASSISTANT ? (
               <p className="text">
-                Assistant: {course.assistant.firstName}{" "}
-                {course.assistant.lastName} / number of lectures:
-                {course.lecturesNumForAssistent}
+                Professor: {course.professor.firstName}{" "}
+                {course.professor.lastName}
               </p>
+            ) : (
+              ""
             )}
             <p className="text">
               Lectures taken: {course.totalTakenLectures} /
